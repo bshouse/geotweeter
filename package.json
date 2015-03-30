@@ -1,0 +1,19 @@
+{
+  "name": "GeoTweeters",
+  "version": "0.0.1",
+  "description": "A playground for Turf analysis of Twitter data",
+  "main": "index.js",
+  "author": "Brett Shouse",
+  "license": "MIT",
+  "dependencies": {
+    "bson": "^0.2.21",
+    "express": "^4.12.3",
+    "line-reader": "^0.2.4",
+    "moment-timezone": "^0.3.1",
+    "mongodb": "^2.0.24",
+    "turf": "^2.0.2"
+  },
+  "config": {
+    "db_url": "mongodb://localhost:27017/csci"
+  }
+}

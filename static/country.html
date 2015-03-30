@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Country Map</title>
+  <meta name="description" content="GeoTweeter Country">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<div id="vis"></div>
+
+
+<script src="d3.v3.min.js"></script>
+<script src="countries.js"></script>
+<script>
+console.log('ready');
+
+function doIt(json) {
+	console.log("Creating Map");
+	var width = 700;
+	var height = 700;
+
+	var projection;
+	if(loc == "United States of America") {
+		console.log("USA");
+		projection = d3.geo.albersUsa().scale(1).translate([0,0]);
+	} else {
+		console.log("Other");
+		projection = d3.geo.stereographic().scale(1).translate([0,0]);
+	}  
+   
+	var path = d3.geo.path().projection(projection);
+
+	var vis = d3.select("#vis")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height);
+	var bounds = path.bounds(json);
+	var s = 0.95 / Math.max((bounds[1][0] - bounds[0][0]) / width, (bounds[1][1] - bounds[0][1]) / height);
+	var t = [(width - s * (bounds[1][0] + bounds[0][0])) / 2, (height - s * (bounds[1][1] + bounds[0][1])) / 2];
+
+	projection
+		.scale(s)
+      .translate(t);
+      
+	//Diagonal Hatch for no HeatMap 
+	vis.append('defs')
+		.append('pattern')
+			.attr('id', 'diagonalHatch')
+			.attr('patternUnits', 'userSpaceOnUse')
+			.attr('width', 4)
+			.attr('height', 4)
+		.append('path')
+			.attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+			.attr('stroke', '#222')
+			.attr('stroke-width', 1);
+
+
+	vis.append("g")
+			.attr("class", "countries" )
+			.attr("title", "test title")
+		.selectAll("path")
+			.data(json.features)
+			.enter().append("path")
+				.attr("d", path)
+				.attr("stroke", "#222")
+				.attr("fill", function(d) { return (summary[d.properties["name"]] ? summary[d.properties["name"]].heat : "url(#diagonalHatch)");} )
+			.append("svg:title")
+				.text(function(d, i) {
+					if(summary[d.properties.name]) {
+						return d.properties.name+" "+summary[d.properties.name].total +" of "+summary.total+" tweets"; 
+					} else {
+						return d.properties.name;
+					}
+				});
+				
+console.log("Map svg done");
+  };
+  
+function getParameterByName(name) {
+    var name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+var loc = getParameterByName('country');
+console.log('Requested Country: '+loc);
+var country=null;
+var buildMap = function() {
+	console.log('Building map geometry');
+	tCountry={};
+	tCountry.type="FeatureCollection";
+	tCountry.features=[];
+	for(var y = 0; y < states.features.length; y++) {
+		if(states.features[y].properties.admin == loc) {
+			tCountry.features[tCountry.features.length]=states.features[y];
+		}			
+	}
+	country=tCountry;
+};
+
+var states;
+var reqStates = new XMLHttpRequest();
+reqStates.open("GET","ne_10m_admin_1_states_provinces.json", true);
+reqStates.addEventListener("load", function () {
+	console.log('State/province geometry loaded');
+	states = JSON.parse(reqStates.responseText);
+	buildMap();
+});
+reqStates.send(null);
+
+var summary=null;
+var reqSummary = new XMLHttpRequest();
+reqSummary.open("GET", "/summary?location="+loc, true);
+reqSummary.addEventListener("load", function() {
+	console.log('Summary loaded for: '+loc);
+	summary = JSON.parse(reqSummary.responseText);
+});
+reqSummary.send(null);
+
+
+var start = function() {
+	if(states != null && summary != null && country != null) {
+		doIt(country);
+	} else {
+		setTimeout(start,500);
+	}
+};
+
+start();
+</script>
+  
+</body>
+</html>
