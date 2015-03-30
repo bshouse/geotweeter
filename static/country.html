@@ -105,7 +105,7 @@ var buildMap = function() {
 
 var states;
 var reqStates = new XMLHttpRequest();
-reqStates.open("GET","ne_10m_admin_1_states_provinces.json", true);
+reqStates.open("GET","ne_110m_admin_1_states_provinces.json", true);
 reqStates.addEventListener("load", function () {
 	console.log('State/province geometry loaded');
 	states = JSON.parse(reqStates.responseText);
