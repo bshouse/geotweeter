@@ -17,7 +17,7 @@ var db;
 
 //Load GeoJSON
 var geo = require('../static/ne_10m_admin_0_countries_lakes.json'); //Country GeoJSON
-var state = require('../static/ne_10m_admin_1_states_provinces.json');
+var state = require('../static/ne_110m_admin_1_states_provinces.json');
 var tzone = require('../static/ne_10m_time_zones.json'); //Timezone GeoJSON
 
 //Stats Variable
