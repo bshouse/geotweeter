@@ -38,6 +38,7 @@ var createSummary = function() {
 	collection.distinct("properties.country", function(err, docs) {
 		if (err) {
 			console.error("Error - distinct countries: " + err.message);
+			process.exit();
 		} else {
 			countries = docs;	
 		}
@@ -48,14 +49,18 @@ var createSummary = function() {
 	db.collection('summary').find({'name': 'World'},
 	 function(err, cursor) {
 		if (err) {
-			console.log(err.message);
+			console.error(err.message);
 			process.exit();
 		} else {
 			cursor.toArray(function(err, arr) {
 				if(err) {
-					console.log(err.message);
+					console.error(err.message);
 					process.exit();
 				} else {
+					if(arr.length == 0) {
+						console.error('Missing World Summary. Try running createWorldSummary.js first');
+						process.exit();					
+					}
 					worldSummary=arr[0];
 				} 
 			});
@@ -68,6 +73,7 @@ var createSummary = function() {
 };
 
 var loadStates = function () {
+	console.log('Loading states for '+country);
 	collection.distinct('properties.state',{'properties.country': country}, function(err, docs) {
 		if (err) {
 			console.error("Error - distinct states: " + err.message);
@@ -88,27 +94,32 @@ var countrySum = function() {
 		db.close();
 		process.exit();
 	}	
-
+	
 	country = countries[countryPos];
 	if(states == null) {
 		loadStates();
 		return;
 	}
 	
-	console.log('Creating summary for: '+country);
+	console.log('Creating a Country summary for: '+country);
 	summary={};
 	summary.name=country;
 	summary.total=worldSummary[country].total;
 	summary.places = worldSummary[country].places;
 	summary.points = worldSummary[country].points;
 
-	statePos=0;
-	stateSum();
+	if(states.length != 0) {
+		statePos=0;
+		stateSum();
+	} else {
+		console.log(country+' has no states');
+		saveCountry();
+	}
 	
 };
 var stateSum = function () {
 	state = states[statePos];
-	console.log("Creating summary for: "+state);
+	console.log("Creating a State summary for: "+state);
 	summary[state] = {};
 	collection.count({
 		'properties.country': country,
@@ -152,10 +163,10 @@ var wrapState = function() {
 	if(summaryPos == summaryLength) {
 		summaryPos=0;
 		statePos++;
-		if(statePos == states.length) {
-			stateCode(); //Heat map & percents
+		if(statePos < states.length) {
+			stateSum();			
 		} else {
-			stateSum();
+			stateCode(); //Heat map & percents
 		}
 	}
 };

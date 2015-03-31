@@ -65,9 +65,10 @@ var createSummary = function() {
 			console.error("Error - distinct countries: " + err.message);
 		} else {
 			countries = docs;
-			summaryLength += (docs.length * 3);
-			for (var x = 0; x < docs.length; x++) {
-				countrySum(docs[x]);
+			summaryLength += (countries.length * 3);
+			for (var x = 0; x < countries.length; x++) {
+				countries[x] = countries[x].replace(/\./g,'_');
+				countrySum(countries[x]);
 			}
 		}
 		wrapIt();
@@ -75,6 +76,7 @@ var createSummary = function() {
 };
 
 var countrySum = function(country) {
+	
 	summary[country] = {};
 	collection.count({
 		"properties.country": country
@@ -138,14 +140,8 @@ var wrapIt = function() {
 		//DB queries done
 		countryCode();
 	} else if (summaryLength == 0) {
+		console.log('Saving World Summary');
 		db.collection('summary').update({"name": "World"}, summary, {upsert: true, w:1, safe:true},function(err) { if(err) { console.error(err.message); } db.close(); });
-		fs.writeFile("../static/summary.js", "var summary=" + JSON.stringify(summary) + ";" + "\n", function(err) {
-			if (err) {
-				console.error(err.message);
-			}
-		});
-		
-		
 	}
 };
 

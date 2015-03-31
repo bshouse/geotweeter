@@ -350,8 +350,6 @@ var runLoading = function() {
 		processFile(files[filePos]);
 		filePos++;	
 	} else {
-		//Output general file stats
-		console.error('Tweets Stats:\n\tTotal Read: ' + lines + '\n\tTwitter Points: ' + summary.points + '\n\tTwitter Place: ' + summary.places + '\n\tNo Geo Coding: ' + noGeoCode + '\n\tNo Country Found: ' + countryNotFound + '\n\tNo State Found: ' + stateNotFound + '\n\tAntartica: ' + antarctica + '\n\tNo Time Zone: ' + noTimeZone);
 		
 		closeDb();
 	
