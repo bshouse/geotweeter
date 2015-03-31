@@ -154,6 +154,7 @@ function validGeoJsonPoint(point) {
 //Return the country name of GeoJSON point
 function findCountry(tweetGeoJson) {
 	var near = '';
+	var distance=99999;
 	//Point inside country boundaries
 	for (var i = 0; i < geo.features.length; i++) {
 		if (tweetGeoJson.geometry.coordinates[0] >= geo.features[i].bbox[0] &&
@@ -164,16 +165,15 @@ function findCountry(tweetGeoJson) {
 				return geo.features[i].properties.ADMIN;
 			} else {
 				if (near != '') {
-					console.error(lines + ': near match with- ' + near + ' and ' + geo.features[i].properties.ADMIN);
+					//console.error(lines + ': near match with- ' + near + ' and ' + geo.features[i].properties.ADMIN);
 				}
 				near = geo.features[i].properties.ADMIN;
 			}
-
-			return geo.features[i].properties.ADMIN;
 		}
 	}
 
 	if (near != '') {
+//console.log('Using last near match: '+near);
 		return near;
 	} else {
 		return 'Not Found';
@@ -182,34 +182,23 @@ function findCountry(tweetGeoJson) {
 
 //Return the state name of GeoJSON point
 function findState(country,tweetGeoJson) {
-	var near = '';
+	tweetGeoJson.properties.country="Not Found";
 	//Point inside country boundaries
 	for (var i = 0; i < state.features.length; i++) {
-		if(state.features[i].properties.admin != country) {
-			continue;
-		}
 		if (tweetGeoJson.geometry.coordinates[0] >= state.features[i].bbox[0] &&
 			tweetGeoJson.geometry.coordinates[0] <= state.features[i].bbox[2] &&
 			tweetGeoJson.geometry.coordinates[1] >= state.features[i].bbox[1] &&
 			tweetGeoJson.geometry.coordinates[1] <= state.features[i].bbox[3]) {
 			if (turf.inside(tweetGeoJson, state.features[i])) {
-				return state.features[i].properties.name;
-			} else {
-				if (near != '') {
-					console.error(lines + ': near match with- ' + near + ' and ' + state.features[i].properties.name);
-				}
-				near = state.features[i].properties.name;
-			}
-
-			return state.features[i].properties.name;
+				tweetGeoJson.properties.state=state.features[i].properties.name;
+				tweetGeoJson.properties.country=state.features[i].properties.admin;
+				return;
+			} 
 		}
 	}
 
-	if (near != '') {
-		return near;
-	} else {
-		return 'Not Found';
-	}
+	tweetGeoJson.properties.state='Not Found';
+	return;
 }
 
 //Return the time zone of a GeoJSON point
@@ -243,13 +232,16 @@ function processFile() {
 					turf.properties.text = tTweet.text;
 					turf.properties.user_id = tTweet.user.id_str;
 					turf.properties.screen_name = tTweet.user.screen_name;
-					turf.properties.country = findCountry(turf); //Find country for point
+					findState(turf.properties.country,turf);
+					if(turf.properties.state == 'Not Found') {
+						stateNotFound++;
+					}
+					if(turf.properties.country == 'Not Found') {
+						turf.properties.country = findCountry(turf); //Find country for point
+					}
 					if (turf.properties.country != 'Not Found') { //Country not found?
 					
-						turf.properties.state=findState(turf.properties.country,turf);
-						if(turf.properties.state == 'Not Found') {
-							stateNotFound++;
-						}			
+									
 					
 						turf.properties.timezone = findTimeZone(turf); //Find Timezone for Point
 						if (turf.properties.timezone == 'Antarctica/' || turf.properties.timezone == 'Antarctica/Central' || turf.properties.timezone == 'Antarctica/Mirny') { //Antarctica?
