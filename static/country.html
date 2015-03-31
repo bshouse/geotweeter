@@ -18,6 +18,9 @@
 <script src="countries.js"></script>
 <script>
 console.log('ready');
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 function doIt(json) {
 	console.log("Creating Map");
@@ -72,7 +75,7 @@ function doIt(json) {
 			.append("svg:title")
 				.text(function(d, i) {
 					if(summary[d.properties.name]) {
-						return d.properties.name+" "+summary[d.properties.name].total +" of "+summary.total+" tweets"; 
+						return d.properties.name+" "+numberWithCommas(summary[d.properties.name].total) +" of "+numberWithCommas(summary.total)+" tweets"; 
 					} else {
 						return d.properties.name;
 					}
