@@ -5,7 +5,6 @@ if (process.argv.length != 3) {
 	process.exit();
 }
 
-console.log("Processing file: "+process.argv[2]);
 
 //Load modules
 var reader = require('line-reader'); //Read Tweets file line-by-line
@@ -37,6 +36,13 @@ summary.points = 0;
 
 //Constants
 var dateFormat = 'ddd MMM DD HH:mm:ss ZZ YYYY'; //Twitter date format
+
+
+//
+var files=[];
+var filePos = 0;
+
+
 
 //Country sum
 //Keeps count of the total tweets by country
@@ -217,9 +223,16 @@ function findTimeZone(tweetGeoJson) {
 }
 
 
-function processFile() {
+
+/*
+ *
+ *Function to read in a tweet input file and create relevant GeoJSON data
+ *
+ */
+function processFile(fname) {
 	//Check each tweet
-	reader.eachLine(process.argv[2], function(line, last) {
+	console.log('Processing file: '+fname);
+	reader.eachLine(fname, function(line, last) {
 		if (line.substring(line.length - 2) == '}}') { //Dirty Data Check
 			var tTweet, geojson;
 			lines++; //Line Count
@@ -281,14 +294,18 @@ function processFile() {
 			}
 		}
 	}).then(function() {
-
-		//Output general file stats
+		fs.unlink(fname);
 		console.error('Tweets Stats:\n\tTotal Read: ' + lines + '\n\tTwitter Points: ' + summary.points + '\n\tTwitter Place: ' + summary.places + '\n\tNo Geo Coding: ' + noGeoCode + '\n\tNo Country Found: ' + countryNotFound + '\n\tNo State Found: ' + stateNotFound + '\n\tAntartica: ' + antarctica + '\n\tNo Time Zone: ' + noTimeZone);
-		
-		closeDb();
+		runLoading();
 	});
 
 };
+
+/*
+ *
+ *Function to insert a row into a collection safely
+ *
+ */
 var insert = function(collection, obj) {
 	//TODO Consider using a Batch as it could provide speed increases
 	
@@ -304,6 +321,12 @@ var insert = function(collection, obj) {
 		 }
 	});
 }
+
+/*
+ *
+ *Function to wait for all inserts to complete and then close the DB connection
+ *
+ */
 var closeDb = function() {
 	if(inserts == insertsComplete) {
 		db.close();
@@ -315,12 +338,70 @@ var closeDb = function() {
 		setTimeout(closeDb,1000);	
 	}	
 }
+
+/*
+ *
+ *Function to control loading of one or more files
+ *
+*/
+var runLoading = function() {
+	console.log('runLoading '+filePos+'/'+files.length);
+	if(filePos < files.length) {
+		processFile(files[filePos]);
+		filePos++;	
+	} else {
+		//Output general file stats
+		console.error('Tweets Stats:\n\tTotal Read: ' + lines + '\n\tTwitter Points: ' + summary.points + '\n\tTwitter Place: ' + summary.places + '\n\tNo Geo Coding: ' + noGeoCode + '\n\tNo Country Found: ' + countryNotFound + '\n\tNo State Found: ' + stateNotFound + '\n\tAntartica: ' + antarctica + '\n\tNo Time Zone: ' + noTimeZone);
+		
+		closeDb();
+	
+	}
+
+}
+
+/*
+ *
+ *Function to alert the application that the DB is connected and ready to use
+ *
+ */
 var dbLoaded = function(err, database) {
 	if (err) {
 		console.error(err.message);
 	}
 	db = database;
 	console.log('Database Connected');
-	processFile();
+	runLoading();
 };
-require('mongodb').MongoClient.connect(pkg.config.db_url, dbLoaded);
+
+
+var fileList = function(err,stats) {
+	if(err) {
+		console.err(err);
+	}
+	if(stats.isFile()) {
+		console.log("Processing file: "+process.argv[2]);
+		files[files.length]=process.argv[2];
+		console.log('Processing '+files.length+' files');
+		require('mongodb').MongoClient.connect(pkg.config.db_url, dbLoaded);
+
+	} else if(stats.isDirectory()) {
+		console.log("Processing directory: "+process.argv[2]);
+		fs.readdir(process.argv[2], function(err, fl) {
+			if (err) { console.error(err); return; }
+			fl.forEach(function(f) {
+				if(f.substring(f.length-5) == '.json') {
+					files[files.length]=process.argv[2]+f;
+				}
+			});
+			console.log('Processing '+files.length+' files');
+			require('mongodb').MongoClient.connect(pkg.config.db_url, dbLoaded);
+
+		});
+
+	} else {
+		console.error('Unusable source input file/directory');
+		process.exit();
+	}
+};
+fs.stat(process.argv[2], fileList);
+
