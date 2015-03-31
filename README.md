@@ -1,2 +1,4 @@
-# geotweeter
-Look at GeoTagged Tweets
+# GeoTweeter
+Visualize at GeoTagged Tweets
+
+See the Wiki for usage information.
