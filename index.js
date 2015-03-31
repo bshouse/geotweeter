@@ -106,15 +106,22 @@ function errorHandler(err, req, res, next) {
 // Execute commands in clean exit
 process.on('exit', function() {
 	console.log('Exiting ...');
-	db.close(); //Close MongoDB Connection
-	http.close(); //Close Express
+	try {
+		db.close(); //Close MongoDB Connection
+	} catch (e) {}
+	try {
+		http.close(); //Close Express
+	} catch (e) {}
 	console.log('bye');
 });
 
 // happens when you press Ctrl+C
 process.on('SIGINT', function() {
 	console.log('\nGracefully shutting down on SIGINT (Crtl-C)');
-	db.close(); //Close MongoDB Connection
+	try {
+		db.close(); //Close MongoDB Connection
+	} catch (e) {}
+
 	process.exit();
 });
 
