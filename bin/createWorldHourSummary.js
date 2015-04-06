@@ -21,7 +21,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "0"
+		"properties.local_hour": "00"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[0]: " + err.message);
@@ -31,7 +31,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "1"
+		"properties.local_hour": "01"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[1]: " + err.message);
@@ -41,7 +41,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "2"
+		"properties.local_hour": "02"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[2]: " + err.message);
@@ -51,7 +51,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "3"
+		"properties.local_hour": "03"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[3]: " + err.message);
@@ -61,7 +61,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "4"
+		"properties.local_hour": "04"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[4]: " + err.message);
@@ -71,7 +71,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "5"
+		"properties.local_hour": "05"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[5]: " + err.message);
@@ -81,7 +81,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "6"
+		"properties.local_hour": "06"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[6]: " + err.message);
@@ -91,7 +91,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "7"
+		"properties.local_hour": "07"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[7]: " + err.message);
@@ -101,7 +101,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "8"
+		"properties.local_hour": "08"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[8]: " + err.message);
@@ -111,7 +111,7 @@ var createSummary = function() {
 		wrapIt();
 	});
 	collection.count({
-		"properties.local_hour": "9"
+		"properties.local_hour": "09"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary.hour[9]: " + err.message);
@@ -291,7 +291,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "0"
+		"properties.local_hour": "00"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[0]: " + err.message);
@@ -302,7 +302,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "1"
+		"properties.local_hour": "01"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[1]: " + err.message);
@@ -313,7 +313,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "2"
+		"properties.local_hour": "02"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[2]: " + err.message);
@@ -324,7 +324,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "3"
+		"properties.local_hour": "03"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[3]: " + err.message);
@@ -335,7 +335,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "4"
+		"properties.local_hour": "04"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[4]: " + err.message);
@@ -346,7 +346,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "5"
+		"properties.local_hour": "05"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[5]: " + err.message);
@@ -357,7 +357,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "6"
+		"properties.local_hour": "06"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[6]: " + err.message);
@@ -368,7 +368,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "7"
+		"properties.local_hour": "07"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[7]: " + err.message);
@@ -379,7 +379,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "8"
+		"properties.local_hour": "08"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[8]: " + err.message);
@@ -390,7 +390,7 @@ var countrySum = function(country) {
 	});
 	collection.count({
 		"properties.country": country,
-		"properties.local_hour": "9"
+		"properties.local_hour": "09"
 	}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].hour[9]: " + err.message);
