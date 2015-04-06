@@ -30,7 +30,7 @@ require('mongodb').MongoClient.connect(pkg.config.db_url, dbLoaded);
 app.get('/', function(req, res) {
 	
 	//Default page
-	res.sendFile('world.html', { root: __dirname + "/static" } );
+	res.sendFile('hotspots.html', { root: __dirname + "/static" } );
 });
 
 app.get('/summary', function(req, res) {
