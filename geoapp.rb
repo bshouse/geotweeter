@@ -2,18 +2,24 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
+require 'sinatra/config_file'
 require 'mongo'
 require 'json'
 
 include Mongo
+config_file 'config.yml'
 
- mongo_client = MongoClient.new("localhost", 27017)
- db = mongo_client.db('csci')
- coll = db.collection('summary')
+configure do
+	#Location of static pages
+	set :public_folder, settings.public_folder
+	set :host, settings.host
+	set :port, settings.port
+	#Location of Mongo DB
+	mongo_client = MongoClient.new(settings.db_host,settings.db_port)
+ 	set :db, mongo_client.db(settings.db_name)
+ 	disable :raise_errors, :show_exceptions,:dump_errors,:logging
+end
 
-#Location of static pages
-set :public_folder, File.dirname(__FILE__) + '/static'
-set :port, 3000
 
 #Default Page
 get '/' do 
@@ -22,6 +28,7 @@ end
 
 #Summary content from Database
 get '/summary' do
+	coll = settings.db.collection('summary')
 	content_type :json
 	if params[:location]
 		loc = params[:location]
@@ -35,6 +42,7 @@ end
 get '/:name' do
 	send_file File.join(settings.public_folder, params[:name])
 end
+
 
 
 

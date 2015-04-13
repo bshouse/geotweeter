@@ -1,0 +1,7 @@
+#Key Value Pairs
+host: localhost
+port: 3000
+public_folder: static
+db_port: 27017
+db_host: localhost
+db_name: csci
