@@ -40,7 +40,7 @@ var createSummary = function() {
 	}
 	for (var x = 0; x < BIG_NAME_CHANGES; x++) {
 		summary.smallNames[x] = {};
-		summary.smallNames[x].name = x+' changes';
+		summary.smallNames[x].name = x+' screen names';
 		summary.smallNames[x].count=0;
 	}
 
