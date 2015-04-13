@@ -3,7 +3,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
 require 'mongo'
-require 'json/ext'
+require 'json'
 
 include Mongo
 
@@ -11,10 +11,9 @@ include Mongo
  db = mongo_client.db('csci')
  coll = db.collection('summary')
 
-
 #Location of static pages
 set :public_folder, File.dirname(__FILE__) + '/static'
-#set :port, 3000
+set :port, 3000
 
 #Default Page
 get '/' do 
@@ -29,8 +28,7 @@ get '/summary' do
 	else 
 		loc = "World"
 	end
-	puts loc
-	coll.find("name" => loc).to_a.to_json
+	coll.find("name" => loc).to_a.first.to_json
 end
 
 #Static Pages
