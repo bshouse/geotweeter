@@ -18,6 +18,8 @@ configure do
 	mongo_client = MongoClient.new(settings.db_host,settings.db_port)
  	set :db, mongo_client.db(settings.db_name)
  	disable :raise_errors, :show_exceptions,:dump_errors,:logging
+ 	#Static files are served before route matching
+ 	enable :static
 end
 
 
@@ -35,14 +37,16 @@ get '/summary' do
 	else 
 		loc = "World"
 	end
+	puts "Sending summary: #{loc}"
 	coll.find("name" => loc).to_a.first.to_json
 end
 
-#Static Pages
-get '/:name' do
-	send_file File.join(settings.public_folder, params[:name])
+error do
+  'Following error occured: ' + env['sinatra.error'].message
 end
 
-
+not_found do
+	'No route for request: ' + request.path
+end
 
 
