@@ -7,7 +7,6 @@
   "license": "MIT",
   "dependencies": {
     "bson": "^0.2.21",
-    "express": "^4.12.3",
     "line-reader": "^0.2.4",
     "moment-timezone": "^0.3.1",
     "mongodb": "^2.0.24",
