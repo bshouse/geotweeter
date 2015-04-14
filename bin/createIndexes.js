@@ -12,9 +12,9 @@ var twitterIndex = [
 	'properties.local_dow',
 	'properties.local_hour',
 	'properties.local_doy',
-	'{"properties.country": 1, properties.local_dow: 1}',
-	'{"properties.country": 1, properties.local_hour: 1}',
-	'{"properties.country": 1, properties.local_doy: 1}',
+	'{"properties.country": 1, "properties.local_dow": 1}',
+	'{"properties.country": 1, "properties.local_hour": 1}',
+	'{"properties.country": 1, "properties.local_doy": 1}'
 ];
 var createIndex = function(index,collection) {
 	indexes++;
@@ -27,6 +27,7 @@ var createIndex = function(index,collection) {
 } 
 var closeDb = function() {
 	if(indexes == indexesCompleted) {
+		console.log(indexesCompleted+'/'+indexes);
 		db.close();
 	} else {
 		if(lastCompleted != indexesCompleted) {
