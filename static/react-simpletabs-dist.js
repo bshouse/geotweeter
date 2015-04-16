@@ -1,10 +1,10 @@
 /*!
  * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
+ *  Geotweeter React - A playground for Turf analysis of Twitter data
+ *  @version v0.0.1
  *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
+ *  @license MIT
+ *  @author Brett Shouse (https://github.com/RedRuby67)
  * 
  */
 (function webpackUniversalModuleDefinition(root, factory) {

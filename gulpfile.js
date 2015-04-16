@@ -38,13 +38,13 @@ gulp.task('server', function() {
     open: false,
     notify: false,
     server: {
-      baseDir: ['website', 'dist']
+      baseDir: ['static', 'static']
     }
   });
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./lib/**/*.{css,jsx}', ['webpack']);
+  gulp.watch('./static/**/react-simpletabs.{css,jsx}', ['webpack']);
 });
 
 gulp.task('default', ['webpack', 'server', 'watch']);
