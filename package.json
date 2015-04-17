@@ -14,7 +14,6 @@
     "line-reader": "^0.2.4",
     "moment-timezone": "^0.3.1",
     "mongodb": "^2.0.24",
-    "turf": "^2.0.2"
     "turf": "^2.0.2",
 	"classnames": "^1.2.0"
   },
@@ -24,7 +23,7 @@
     "test": "jest"
   },
   "jest": {
-    "scriptPreprocessor": "./utils/jsx-preprocessor.js",
+    "scriptPreprocessor": "./static/jsx-preprocessor.js",
     "unmockedModulePathPatterns": [
       "./node_modules/react"
     ],
@@ -53,6 +52,7 @@
     "react": "0.12.x - 1.x",
     "react-tools": "^0.12.2",
     "style-loader": "^0.8.1",
+    "webpack": "^1.4.4"
     "webpack": "^1.4.4"
   },
   "config": {
