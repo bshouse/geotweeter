@@ -22,6 +22,9 @@ var App = React.createClass({
       case 3:
         hours.showIt();
         break;
+      case 4:
+        users.showIt();
+        break;
       default:
         console.log('unknown tab: '+selectedIndex)
         break;
@@ -45,6 +48,12 @@ var App = React.createClass({
           <h2>Peak Geo Tweeting Hours by Country</h2>
           <div id='hourCountrySelect'></div>
           <div id='hourChart'></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Users'>
+          <h2>Number of users by Tweet count.</h2>
+          <div id="smallCountsChart"></div>
+          <h2>Screen Names Changes</h2>
+          <div id="screenNameChart"></div>
         </Tabs.Panel>
         <Tabs.Panel title='Twitter Tables'>
           <h2>Twitter Tables Go here</h2>
