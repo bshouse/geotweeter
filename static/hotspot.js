@@ -8,7 +8,6 @@ req.open("GET", "/summary", true);
 req.addEventListener("load", function() {
   worldHotSpotSummary = JSON.parse(req.responseText);
   console.log("loaded world Hot Spot Summary");
-  worldHotspots(c);
 });
 req.send(null);
 
@@ -180,6 +179,18 @@ var emptyCountry = function() {
      myNode.removeChild(myNode.firstChild);
   }
 };
-});
 
-setTimeout(hotspot,500);
+
+  return {
+    showIt: function() {
+      console.log('showIt');
+      if(worldHotSpotSummary) {
+        emptyCountry();
+        worldHotspots(c);
+      } else {
+        setTimeout(showIt,500);
+      }
+    }
+  };
+
+})();

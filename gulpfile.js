@@ -37,9 +37,10 @@ gulp.task('server', function() {
   browserSync({
     open: false,
     notify: false,
+    port: 3001,
     server: {
       baseDir: ['static']
-    }
+    },
   });
 });
 
