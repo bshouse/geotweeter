@@ -19,6 +19,9 @@ var App = React.createClass({
       case 2:
         days.showIt();
         break;
+      case 3:
+        hours.showIt();
+        break;
       default:
         console.log('unknown tab: '+selectedIndex)
         break;
@@ -35,8 +38,13 @@ var App = React.createClass({
         </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
           <h2>Peak Geo Tweeting Days by Country</h2>
-          <div id='countrySelect'></div>
+          <div id='dayCountrySelect'></div>
           <div id='dayChart'></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Peak Hours'>
+          <h2>Peak Geo Tweeting Hours by Country</h2>
+          <div id='hourCountrySelect'></div>
+          <div id='hourChart'></div>
         </Tabs.Panel>
         <Tabs.Panel title='Twitter Tables'>
           <h2>Twitter Tables Go here</h2>

@@ -100,17 +100,17 @@ var countrySelect = function() {
 		}
 	}
 	//Add the country drop-down to the page
-	document.getElementById('countrySelect').appendChild(select);
+	document.getElementById('dayCountrySelect').appendChild(select);
 };
 
 var cleanUp = function() {
 	console.log('cleanUp');
-	var p = document.getElementById('countrySelect').parentNode
+	var p = document.getElementById('dayCountrySelect').parentNode
 	var c = document.getElementById("dayChart");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
-	var c = document.getElementById("countrySelect");
+	var c = document.getElementById("dayCountrySelect");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
