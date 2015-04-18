@@ -119,7 +119,7 @@ var cleanUp = function() {
 
 //Load the World Day summary
 d3.json("/summary?location=World%20Day", function(error, json) {
-	console.log('Got data');
+	console.log('Got World Day data');
 	if (error) { return console.warn(error); }
 	world = json; //Cache the full summary report
 	data = world.day; //Default the World report for charting
