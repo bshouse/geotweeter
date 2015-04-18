@@ -1,28 +1,3 @@
-.tabs-menu {
-  display: table;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tabs-menu-item {
-  float: left;
-  margin-right: 20px;
-}
-
-.tabs-menu-item a {
-  display: block;
-  color: #A9A9A9;
-}
-
-.tabs-menu-item:not(.is-active) a:hover,
-.tabs-menu-item.is-active a {
-  color: #3498DB;
-}
-
-.tab-panel {
-  padding: 10px 50px;
-}
 
 .tabs {
   margin-top: -50px;
@@ -47,6 +22,12 @@
 
 .tabs-menu-item {
   float: left;
+  margin-right: 20px;
+}
+
+
+.tab-panel {
+  padding: 10px 50px;
 }
 
 .tabs-menu-item a {
