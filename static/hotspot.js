@@ -2,6 +2,8 @@ var hotspot = (function () {
 console.log('init');
 var worldHotSpotSummary;
 
+
+
 console.log('Loading World Hot Spot Summary');
 var req = new XMLHttpRequest();
 req.open("GET", "/summary", true);
@@ -100,7 +102,9 @@ function countryHotSpots() {
 
   var path = d3.geo.path().projection(projection);
 
-  var vis = d3.select("#country")
+  var svg = document.createElement('div');
+
+  var vis = d3.select(svg)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -142,8 +146,9 @@ function countryHotSpots() {
             return d.properties.name;
           }
         });
-
-console.log("Map svg done");
+        alertify.defaults.glossary.title=country;
+        alertify.alert(svg).set('resizable',true).resizeTo(700,640);
+        console.log("Map svg done");
 };
 
 var buildMap = function(countryName) {
@@ -180,15 +185,18 @@ var emptyCountry = function() {
   }
 };
 
+var kickOff = function() {
+  emptyCountry();
+  worldHotspots(c);
+};
 
   return {
     showIt: function() {
       console.log('showIt');
       if(worldHotSpotSummary) {
-        emptyCountry();
-        worldHotspots(c);
+        kickOff();
       } else {
-        setTimeout(showIt,500);
+        setTimeout(kickOff,1000);
       }
     }
   };
