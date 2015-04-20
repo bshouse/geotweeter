@@ -146,9 +146,10 @@ function countryHotSpots() {
             return d.properties.name;
           }
         });
-        alertify.defaults.glossary.title=country;
+
+        alertify.defaults.glossary.title=countryHotSpotSummary.name;
         alertify.alert(svg).set('resizable',true).resizeTo(700,640);
-        console.log("Map svg done");
+        console.log("Map svg done: "+countryHotSpotSummary.name);
 };
 
 var buildMap = function(countryName) {
