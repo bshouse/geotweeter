@@ -7,8 +7,8 @@ var drawDays = function() {
 	console.log('drawDays');
 
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 660 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal().rangeRoundBands([0, width]);
 
@@ -20,7 +20,7 @@ var drawDays = function() {
 
 	//data.map(function(d,i) { return i; })
 	x.domain([0,1,2,3,4,5,6]);
-  	y.domain([0,d3.max(data,function(d) { return d.count; })]);
+  	y.domain([0,d3.max(data,function(d) { return d; })]);
 
 
 	var svg = d3.select('#dayChart').append('svg')
@@ -44,15 +44,14 @@ var drawDays = function() {
       .style('text-anchor', 'end')
       .text('Tweets');
 
-
 	svg.selectAll('.bar')
       .data(data)
     .enter().append('rect')
       .attr('class', 'bar' )
-      .attr('y', function(d,i) { return y(d.count); })
+      .attr('y', function(d,i) { console.log(d); return y(d); })
       .attr('width', x.rangeBand())
       .attr('x', function(d,i) { return x(i); })
-      .attr('height', function(d) { return height - y(d.count); })
+      .attr('height', function(d) { return height - y(d); })
       .append("svg:title")
 				.text(function(d, i) {
 					return d.name+': '+d.count+' tweets';
