@@ -4,9 +4,9 @@
   "description": "A playground for Turf analysis of Twitter data",
   "main": "index.js",
   "author": {
-    "name": "Brett Shouse",
+  "name": "Team: Pure Freaky Magic",
 	"email": "Jonathan.Song@colorado.edu",
-    "url": "https://github.com/RedRuby67"
+  "url": "https://github.com/RedRuby67"
   },
   "license": "MIT",
   "dependencies": {

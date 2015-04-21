@@ -4,81 +4,23 @@
  *  @version v0.0.1
  *  @link 
  *  @license MIT
- *  @author Brett Shouse (https://github.com/RedRuby67)
+ *  @author Team: Pure Freaky Magic (https://github.com/RedRuby67)
  * 
  */
-/*!
- * 
- *  Geotweeter React - A playground for Turf analysis of Twitter data
- *  @version v0.0.1
- *  @link 
- *  @license MIT
- *  @author Brett Shouse (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - A playground for Turf analysis of Twitter data
- *  @version v0.0.1
- *  @link 
- *  @license MIT
- *  @author Brett Shouse (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - A playground for Turf analysis of Twitter data
- *  @version v0.0.1
- *  @link 
- *  @license MIT
- *  @author Brett Shouse (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
- *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
- *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
- *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
- *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
- * 
- */
-/*!
- * 
- *  Geotweeter React - Building tab website to view Geotweeter data
- *  @version v0.1.1
- *  @link 
- *  @license 
- *  @author Jonathan Song (https://github.com/RedRuby67)
- * 
- */
+
+.tabs {
+  margin-top: -50px;
+}
+
+.tabs-navigation {
+  padding: 0 50px;
+}
+
+.tabs-navigation {
+  padding: 0 20px;
+  max-height: 50px;
+  border-bottom: 1px solid #DDD;
+}
 
 .tabs-menu {
   display: table;
@@ -92,16 +34,28 @@
   margin-right: 20px;
 }
 
-.tabs-menu-item a {
-  display: block;
-  color: #A9A9A9;
-}
-
-.tabs-menu-item:not(.is-active) a:hover,
-.tabs-menu-item.is-active a {
-  color: #3498DB;
-}
 
 .tab-panel {
   padding: 10px 50px;
+}
+
+.tabs-menu-item a {
+  display: block;
+  padding: 0 40px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 0;
+  color: #A9A9A9;
+}
+
+.tabs-menu-item:not(.is-active) a:hover {
+  color: #3498db;
+}
+
+.tabs-menu-item.is-active a {
+  background: #fff;
+  border: 1px solid #DDD;
+  border-top: 2px solid #3498db;
+  border-bottom: 0;
+  color: #333;
 }

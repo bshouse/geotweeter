@@ -4,7 +4,7 @@
  *  @version v0.0.1
  *  @link 
  *  @license MIT
- *  @author Brett Shouse (https://github.com/RedRuby67)
+ *  @author Team: Pure Freaky Magic (https://github.com/RedRuby67)
  * 
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -197,6 +197,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return React.createElement("div", null, this.props.children);
 	  }
 	});
+
 
 	module.exports = Tabs;
 
