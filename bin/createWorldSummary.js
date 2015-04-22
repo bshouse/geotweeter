@@ -2,12 +2,13 @@ var pkg = require('../package.json'); //Application Settings
 var fs = require('fs');
 var db;
 var collection; //Twitter Collection
-var summaryLength = 5;
+var summaryLength = 6; //+1 by pg
 var summary = {}; //Tweets by country, total tweets, place/point geotag
 summary.name="World";
 summary.total = 0;
 summary.places = 0;
 summary.points = 0;
+summary.media = 0; //added by pg
 var countries;
 
 //Heat map coloring
@@ -60,12 +61,25 @@ var createSummary = function() {
 		wrapIt();
 	});
 
+//added by pg
+	collection.count({
+		"properties.media": {$ne: "Image Not Found"} // change here
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media: " + err.message);
+		} else {
+			summary.media = count;
+		}
+		wrapIt();
+	});
+//added by pg
+
 	collection.distinct("properties.country", function(err, docs) {
 		if (err) {
 			console.error("Error - distinct countries: " + err.message);
 		} else {
 			countries = docs;
-			summaryLength += (countries.length * 3);
+			summaryLength += (countries.length * 4); //+1 by pg
 			for (var x = 0; x < countries.length; x++) {
 				countries[x] = countries[x].replace(/\./g,'_');
 				countrySum(countries[x]);
@@ -98,7 +112,7 @@ var countrySum = function(country) {
 			summary[country].places = count;
 		}
 		wrapIt();
-	});
+	}); 
 	collection.count({
 		"properties.point": true,
 		"properties.country": country
@@ -110,6 +124,19 @@ var countrySum = function(country) {
 		}
 		wrapIt();
 	});
+//added by pg
+	collection.count({
+		"properties.media": {$ne: "Image Not Found"},
+		"properties.country": country
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary[" + country + "].media: " + err.message);
+		} else {
+			summary[country].media = count;
+		}
+		wrapIt();
+	});
+//added by pg
 };
 
 var countryCode = function() {
