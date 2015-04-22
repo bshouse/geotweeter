@@ -1,29 +1,27 @@
-var days = (function() {
-
-var world; //World Day summary cache
+var hours = (function() {
+var world; //World Hour summary cache
 var data; //Active location data
 
-var drawDays = function() {
-	console.log('drawDays');
+var drawHours = function() {
+	console.log('drawHours');
 
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 660 - margin.left - margin.right,
+    width = 960 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal().rangeRoundBands([0, width]);
 
 	var y = d3.scale.linear().range([height, 0]);
 
-	var xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(function(d) { return data[d].name; });
+	var xAxis = d3.svg.axis().scale(x).orient('bottom');
 
 	var yAxis = d3.svg.axis().scale(y).orient('left');
 
-	//data.map(function(d,i) { return i; })
-	x.domain([0,1,2,3,4,5,6]);
+	x.domain([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
   	y.domain([0,d3.max(data,function(d) { return d; })]);
 
 
-	var svg = d3.select('#dayChart').append('svg')
+	var svg = d3.select('#hourChart').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
   .append('g')
@@ -44,17 +42,22 @@ var drawDays = function() {
       .style('text-anchor', 'end')
       .text('Tweets');
 
+
 	svg.selectAll('.bar')
       .data(data)
     .enter().append('rect')
       .attr('class', 'bar' )
-      .attr('y', function(d,i) { console.log(d); return y(d); })
+      .attr('y', function(d,i) { return y(d); })
       .attr('width', x.rangeBand())
       .attr('x', function(d,i) { return x(i); })
       .attr('height', function(d) { return height - y(d); })
       .append("svg:title")
 				.text(function(d, i) {
-					return d.name+': '+d.count+' tweets';
+					if(i == 0) {
+						return 'Midnight: '+d+' tweets';
+					} else {
+						return 'Hour '+i+': '+d+' tweets';
+					}
 
 				});
 	console.log('done');
@@ -65,16 +68,16 @@ var countrySelected = function() {
 	var sel = document.getElementById('countrySelector');
 	var key = sel[sel.selectedIndex].value;
 	//Set country data
-	data = world[key].day;
+	data = world[key].hour;
 
 	//remove old chart
-	var c = document.getElementById("dayChart");
+	var c = document.getElementById("hourChart");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
 
 	//Draw new chart
-	drawDays();
+	drawHours();
 };
 var countrySelect = function() {
 	//Build a drop-down list of countries
@@ -83,32 +86,41 @@ var countrySelect = function() {
 	select.onchange=countrySelected;
 
 	var opt=null;
-	//For each key in the World Day summary data
+
+	//For each key in the World Hour summary data
 	for(var key in world) {
-		if(world[key].day) { //Make sure we have an day array
-			//Add the country to the list
+		if(world[key].hour) { //Make sure we have an hour array
 			if(opt == null) {
-				data = world[key].day;
-				drawDays(); //Chart the world tweeting days
+				data = world[key].hour;
+				drawHours();
 			}
+			//Add the country to the list
 			opt = document.createElement('option');
 			opt.value=key;
 			opt.text=key;
 			select.appendChild(opt);
 		}
-
 	}
 	//Add the country drop-down to the page
-	document.getElementById('dayCountrySelect').appendChild(select);
+	document.getElementById('hourCountrySelect').appendChild(select);
 };
+
+//Load the World Hour summary
+d3.json("/summary?location=World%20Hour", function(error, json) {
+	console.log('Got World Hour data');
+	if (error) { return console.warn(error); }
+	world = json; //Cache the full summary report
+	data = world.hour; //Default the World report for charting
+
+});
 
 var cleanUp = function() {
 	console.log('cleanUp');
-	var c = document.getElementById("dayChart");
+	var c = document.getElementById('hourChart');
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
-	c = document.getElementById("dayCountrySelect");
+	c = document.getElementById("hourCountrySelect");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
@@ -116,23 +128,16 @@ var cleanUp = function() {
 
 };
 
-//Load the World Day summary
-d3.json("/summary?location=World%20Day", function(error, json) {
-	console.log('Got World Day data');
-	if (error) { return console.warn(error); }
-	world = json; //Cache the full summary report
-	data = world.day; //Default the World report for charting
-});
+
 	return {
 		showIt: function() {
-			console.log('showIt');
-      if(data) {
+			if(data) {
 				cleanUp();
 				countrySelect(); //Add the drop-down country list to the page
-      } else {
-        setTimeout(showIt,500);
-      }
+				drawHours(); //Chart the world tweeting hours
+			} else {
+				setTimeout(showIt,500);
+			}
 		}
-	}
-
+	};
 })();
