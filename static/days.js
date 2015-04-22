@@ -5,7 +5,7 @@ var data; //Active location data
 
 var drawDays = function() {
 	console.log('drawDays');
-
+	var names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 660 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -14,7 +14,7 @@ var drawDays = function() {
 
 	var y = d3.scale.linear().range([height, 0]);
 
-	var xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(function(d) { return data[d].name; });
+	var xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(function(d,i) { return names[i]; });
 
 	var yAxis = d3.svg.axis().scale(y).orient('left');
 
@@ -54,7 +54,7 @@ var drawDays = function() {
       .attr('height', function(d) { return height - y(d); })
       .append("svg:title")
 				.text(function(d, i) {
-					return d.name+': '+d.count+' tweets';
+					return names[i]+': '+d+' tweets';
 
 				});
 	console.log('done');
