@@ -184,6 +184,10 @@ var emptyCountry = function() {
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
+  myNode = document.getElementById("world");
+  while (myNode.firstChild) {
+     myNode.removeChild(myNode.firstChild);
+  }
 };
 
 var kickOff = function() {
