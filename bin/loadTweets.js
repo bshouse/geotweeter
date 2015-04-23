@@ -245,6 +245,13 @@ function processFile(fname) {
 					turf.properties.text = tTweet.text;
 					turf.properties.user_id = tTweet.user.id_str;
 					turf.properties.screen_name = tTweet.user.screen_name;
+					if (tTweet.extended_entities && tTweet.extended_entities.media && tTweet.extended_entities.media[0].media_url_https ) {	
+						turf.properties.media = tTweet.extended_entities.media[0].media_url_https;
+					}
+					else {
+						turf.properties.media = "Image Not Found";
+					}
+					//if statement 
 					findState(turf.properties.country,turf);
 					if(turf.properties.state == 'Not Found') {
 						stateNotFound++;
