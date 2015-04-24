@@ -179,12 +179,16 @@ var getCountrySummary = function(countryName) {
   reqCountrySummary.send(null);
   emptyCountry();
 };
+
 var emptyCountry = function() {
   var myNode = document.getElementById("country");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
-  myNode = document.getElementById("world");
+};
+
+var emptyWorld = function() {
+  var myNode = document.getElementById("world");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
@@ -192,6 +196,7 @@ var emptyCountry = function() {
 
 var kickOff = function() {
   emptyCountry();
+  emptyWorld();
   worldHotspots(c);
 };
 
