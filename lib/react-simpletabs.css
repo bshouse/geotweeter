@@ -1,6 +1,3 @@
-/* =============================================================================
-  An example of how stylize the tabs
-============================================================================= */
 
 .tabs {
   margin-top: -50px;
@@ -25,6 +22,12 @@
 
 .tabs-menu-item {
   float: left;
+  margin-right: 20px;
+}
+
+
+.tab-panel {
+  padding: 10px 50px;
 }
 
 .tabs-menu-item a {

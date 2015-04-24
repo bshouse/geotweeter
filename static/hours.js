@@ -1,49 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Hour</title>
-<meta charset="utf-8">
-<style>
-
-.bar {
-  fill: steelblue;
-}
-
-.bar:hover {
-  fill: brown;
-}
-
-.axis {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-</style>
-</head>
-<body>
-<div id="countrySelect"></div>
-<div id="chart"></div>
-<script src="d3.v3.min.js"></script>
-<script>
-var world; //World Hour summary cache 
+var hours = (function() {
+var world; //World Hour summary cache
 var data; //Active location data
 
 var drawHours = function() {
 	console.log('drawHours');
-	
+
 	var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 400 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal().rangeRoundBands([0, width]);
 
@@ -52,12 +16,12 @@ var drawHours = function() {
 	var xAxis = d3.svg.axis().scale(x).orient('bottom');
 
 	var yAxis = d3.svg.axis().scale(y).orient('left');
-	
+
 	x.domain([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
   	y.domain([0,d3.max(data,function(d) { return d; })]);
 
 
-	var svg = d3.select('#chart').append('svg')
+	var svg = d3.select('#hourChart').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
   .append('g')
@@ -67,7 +31,7 @@ var drawHours = function() {
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + height + ')')
       .call(xAxis);
-      
+
 	svg.append('g')
       .attr('class', 'y axis')
       .call(yAxis)
@@ -77,7 +41,7 @@ var drawHours = function() {
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
       .text('Tweets');
-      
+
 
 	svg.selectAll('.bar')
       .data(data)
@@ -90,11 +54,11 @@ var drawHours = function() {
       .append("svg:title")
 				.text(function(d, i) {
 					if(i == 0) {
-						return 'Midnight: '+d+' tweets';					
+						return 'Midnight: '+d+' tweets';
 					} else {
 						return 'Hour '+i+': '+d+' tweets';
 					}
-					
+
 				});
 	console.log('done');
 
@@ -105,52 +69,75 @@ var countrySelected = function() {
 	var key = sel[sel.selectedIndex].value;
 	//Set country data
 	data = world[key].hour;
-	
+
 	//remove old chart
-	var c = document.getElementById("chart");
+	var c = document.getElementById("hourChart");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
-	
+
 	//Draw new chart
-	drawHours();	
+	drawHours();
 };
 var countrySelect = function() {
 	//Build a drop-down list of countries
 	var select = document.createElement('select');
 	select.id="countrySelector";
 	select.onchange=countrySelected;
-	
-	//Add the default world first
-	var opt = document.createElement('option');
-	opt.value='World';
-	opt.text='World';
-	select.appendChild(opt);
-	
+
+	var opt=null;
+
 	//For each key in the World Hour summary data
 	for(var key in world) {
 		if(world[key].hour) { //Make sure we have an hour array
+			if(opt == null) {
+				data = world[key].hour;
+				drawHours();
+			}
 			//Add the country to the list
 			opt = document.createElement('option');
 			opt.value=key;
 			opt.text=key;
 			select.appendChild(opt);
-		}	
+		}
 	}
 	//Add the country drop-down to the page
-	document.getElementById('countrySelect').appendChild(select);
-}; 
+	document.getElementById('hourCountrySelect').appendChild(select);
+};
 
 //Load the World Hour summary
 d3.json("/summary?location=World%20Hour", function(error, json) {
-	console.log('Got data');
+	console.log('Got World Hour data');
 	if (error) { return console.warn(error); }
 	world = json; //Cache the full summary report
 	data = world.hour; //Default the World report for charting
-	countrySelect(); //Add the drop-down country list to the page
-	drawHours(); //Chart the world tweeting hours
+
 });
 
-</script>
-</body>
-</html>
+var cleanUp = function() {
+	console.log('cleanUp');
+	var c = document.getElementById('hourChart');
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+	c = document.getElementById("hourCountrySelect");
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+	c.style.height='auto';
+
+};
+
+
+	return {
+		showIt: function() {
+			if(data) {
+				cleanUp();
+				countrySelect(); //Add the drop-down country list to the page
+				drawHours(); //Chart the world tweeting hours
+			} else {
+				setTimeout(showIt,500);
+			}
+		}
+	};
+})();

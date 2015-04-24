@@ -37,14 +37,15 @@ gulp.task('server', function() {
   browserSync({
     open: false,
     notify: false,
+    port: 3001,
     server: {
-      baseDir: ['static', 'static']
-    }
+      baseDir: ['static']
+    },
   });
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./static/**/react-simpletabs.{css,jsx}', ['webpack']);
+  gulp.watch('./lib/**/*.{css,jsx}', ['webpack']);
 });
 
 gulp.task('default', ['webpack', 'server', 'watch']);

@@ -1,25 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Users</title>
-<meta charset="utf-8">
-<style>
+var users = (function() {
 
-text {
-  font: 10px sans-serif;
-}
-</style>
-</head>
-<body>
-Number of users by Tweet count.<br/>
-<div id="smallCountsChart"></div>
-
-Screen Names Changes<br/>
-<div id="screenNameChart"></div>
-
-<script src="d3.v3.min.js"></script>
-<script>
-var world; //ScreenName summary 
+var world; //ScreenName summary
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -30,18 +11,18 @@ function repackTweetCounts(dataIn) {
 	var offset=1;
 	for(var x = 0; x+offset < dataIn.length; x++) {
 		if(dataIn[x+offset] === undefined) {
-			break;		
+			break;
 		}
-		
+
 		//Exclude 0 count
 		while(dataIn[x+offset].count == 0) {
 				offset++;
 				if(x+offset == dataIn.length) {
-					break;				
+					break;
 				}
 		}
 		if(dataIn[x+offset] === undefined) {
-			break;		
+			break;
 		}
 		data[x]={};
 		data[x].name=dataIn[x+offset].name;
@@ -55,18 +36,18 @@ function repackChangeCounts(dataIn) {
 	var offset=1;
 	for(var x = 0; x+offset < dataIn.length; x++) {
 		if(dataIn[x+offset] === undefined) {
-			break;		
+			break;
 		}
-		
+
 		//Exclude 0 count
 		while(dataIn[x+offset].count == 0) {
 				offset++;
 				if(x+offset == dataIn.length) {
-					break;				
+					break;
 				}
 		}
 		if(dataIn[x+offset] === undefined) {
-			break;		
+			break;
 		}
 		data[x]={};
 		data[x].name=dataIn[x+offset].name;
@@ -79,16 +60,16 @@ function repackChangeCounts(dataIn) {
 
 var drawSmallCounts = function(data,div) {
 	console.log('drawSmallCounts: '+div);
-	
-var diameter = 960,
+
+var diameter = 500,
     format = d3.format(",d"),
     color = d3.scale.category20c();
 
 var bubble = d3.layout.pack()
     .sort(null)
-    .size([diameter-40, diameter])
-    .padding(90);
-	
+    .size([diameter-15, diameter])
+    .padding(235);
+
 var svg = d3.select("#"+div).append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
@@ -99,14 +80,14 @@ var svg = d3.select("#"+div).append("svg")
     .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-      
+
 	node.append("title")
       	.text(function(d) {return numberWithCommas(d.value) + " users with "+d.name; });
-      	
+
    node.append("circle")
       	.attr("r", function(d) { return d.r; })
       	.style("fill", function(d) { return color(d.name); });
-      	
+
 	node.append("text")
       	.attr("dy", ".3em")
       	.style("text-anchor", "start")
@@ -119,16 +100,16 @@ var svg = d3.select("#"+div).append("svg")
 
 var drawNameChanges = function(data,div) {
 	console.log('drawNameChanges: '+div);
-	
-var diameter = 960,
+
+var diameter = 500,
     format = d3.format(",d"),
     color = d3.scale.category20c();
 
 var bubble = d3.layout.pack()
     .sort(null)
-    .size([diameter-40, diameter])
-    .padding(90);
-	
+    .size([diameter-15, diameter])
+    .padding(100);
+
 var svg = d3.select("#"+div).append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
@@ -139,18 +120,18 @@ var svg = d3.select("#"+div).append("svg")
     .enter().append("g")
       .attr("class", "node")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-      
+
 	node.append("title")
       	.text(function(d) {return numberWithCommas(d.value) + " users with "+d.name; });
-      	
+
    node.append("circle")
       	.attr("r", function(d) { return d.r; })
       	.style("fill", function(d) { return color(d.name); });
-      	
+
 	node.append("text")
       	.attr("dy", ".3em")
       	.style("text-anchor", "start")
-      	.text(function(d) { if(d.name)  { return d.name.substring(0,d.name.length-7); } else { return ""; } });
+      	.text(function(d) { if(d.name)  { return d.name.substring(0,d.name.indexOf(' ')); } else { return ""; } });
 
 
 	d3.select("#"+div).style("height", diameter + "px");	console.log('done');
@@ -159,16 +140,36 @@ var svg = d3.select("#"+div).append("svg")
 
 //Load the ScreenName summary
 d3.json("/summary?location=ScreenName", function(error, json) {
-	console.log('Got data');
+	console.log('Got ScreenName data');
 	if (error) { return console.warn(error); }
 	world = json; //Cache the full summary report
-	drawSmallCounts(repackTweetCounts(world.smallCounts),'smallCountsChart');
-	drawNameChanges(repackChangeCounts(world.smallNames),'screenNameChart');
-	
+
 });
+var cleanUp = function() {
+	console.log('cleanUp');
+	var c = document.getElementById("screenNameChart");
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+	var c = document.getElementById("smallCountsChart");
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+
+};
 
 
+  return {
+    showIt: function() {
+      console.log('users.showIt');
+      if(world) {
+        cleanUp();
+        drawSmallCounts(repackTweetCounts(world.smallCounts),'smallCountsChart');
+      	drawNameChanges(repackChangeCounts(world.smallNames),'screenNameChart');
+      } else {
+        setTimeout(showIt,500);
+      }
+    }
+  };
 
-</script>
-</body>
-</html>
+})();

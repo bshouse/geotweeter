@@ -4,9 +4,9 @@
   "description": "A playground for Turf analysis of Twitter data",
   "main": "index.js",
   "author": {
-    "name": "Brett Shouse",
+  "name": "Team: Pure Freaky Magic",
 	"email": "Jonathan.Song@colorado.edu",
-    "url": "https://github.com/RedRuby67"
+  "url": "https://github.com/RedRuby67"
   },
   "license": "MIT",
   "dependencies": {
@@ -55,6 +55,9 @@
     "webpack": "^1.4.4"
   },
   "config": {
+    "host": "localhost",
+    "port": "3000",
+    "public_folder": "static",
     "db_url": "mongodb://localhost:27017/csci"
   }
 }
