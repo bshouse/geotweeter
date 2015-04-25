@@ -14,11 +14,24 @@ var twitterIndex = [
 	'properties.local_doy',
 	'{"properties.country": 1, "properties.local_dow": 1}',
 	'{"properties.country": 1, "properties.local_hour": 1}',
-	'{"properties.country": 1, "properties.local_doy": 1}'
+	'{"properties.country": 1, "properties.local_doy": 1}',
 ];
 var createIndex = function(index,collection) {
 	indexes++;
 	db.collection(collection).ensureIndex(index, function (error) {
+			if(error) {
+				console.error(error.message);
+			}
+			indexesCompleted++;
+		});
+} 
+//Hack to create text index
+//Mongo driver ensureIndex only expects a string for single property indexes
+var createTextIndex = function(collection) {
+	indexes++;
+	db.collection(collection).ensureIndex({
+		'properties.text': 'text'
+		}, function (error) {
 			if(error) {
 				console.error(error.message);
 			}
@@ -41,6 +54,7 @@ var addIndexes = function () {
 	for(var x = 0; x < twitterIndex.length; x++) {
 		createIndex(twitterIndex[x],'twitter');	
 	}
+	createTextIndex('twitter');
 	closeDb();
 }
 var dbLoaded = function(err, database) {
