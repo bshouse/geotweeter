@@ -6,15 +6,15 @@ var db;
 var twitterIndex = [
 	'properties.country',
 	'properties.point',
-	'{"properties.country": 1, "properties.point": 1}',
-	'{"properties.country": 1, "state": 1, "properties.point": 1}',
-	'{"properties.country": 1, "properties.local_doy": 1, "properties.local_hour": 1}',
+	{"properties.country": 1, "properties.point": 1},
+	{"properties.country": 1, "state": 1, "properties.point": 1},
+	{"properties.country": 1, "properties.local_doy": 1, "properties.local_hour": 1},
 	'properties.local_dow',
 	'properties.local_hour',
 	'properties.local_doy',
-	'{"properties.country": 1, "properties.local_dow": 1}',
-	'{"properties.country": 1, "properties.local_hour": 1}',
-	'{"properties.country": 1, "properties.local_doy": 1}'
+	{"properties.country": 1, "properties.local_dow": 1},
+	{"properties.country": 1, "properties.local_hour": 1},
+	{"properties.country": 1, "properties.local_doy": 1}
 ];
 var createIndex = function(index,collection) {
 	indexes++;
