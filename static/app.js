@@ -55,9 +55,6 @@ var App = React.createClass({
           <h2>Screen Names Changes</h2>
           <div id="screenNameChart"></div>
         </Tabs.Panel>
-        <Tabs.Panel title='Twitter Tables'>
-          <h2>Twitter Tables Go here</h2>
-        </Tabs.Panel>
       </Tabs>
     );
   }
