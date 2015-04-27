@@ -5,7 +5,7 @@ var collection; //Twitter Collection
 var countries=null; //Array of countries
 var states=null;
 var worldSummary=null;
-var summaryLength = 3;
+var summaryLength = 4; //+1 by pg
 var summaryPos = 0;
 var summary = {}; //Tweets by state, total tweets, place/point geotag
 var country;
@@ -107,6 +107,7 @@ var countrySum = function() {
 	summary.total=worldSummary[country].total;
 	summary.places = worldSummary[country].places;
 	summary.points = worldSummary[country].points;
+	summary.points = worldSummary[country].media //added by pg
 
 	if(states.length != 0) {
 		statePos=0;
@@ -156,6 +157,20 @@ var stateSum = function () {
 		}
 		wrapState();
 	});
+//added by pg
+	collection.count({
+		"properties.media": {$ne: "Image Not Found"},
+		'properties.country': country,
+		'properties.state': state
+	}, {}, function(err, count) {
+		if (err) {
+			console.error('Error - summary[' + state + '].media: ' + err.message);
+		} else {
+			summary[state].media = count;
+		}
+		wrapState();
+	});
+//added by pg
 };
 
 var wrapState = function() {
