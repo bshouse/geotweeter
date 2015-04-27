@@ -17,12 +17,15 @@ var App = React.createClass({
         hotspot.showIt();
         break;
       case 2:
-        days.showIt();
+        media.showIt();
         break;
       case 3:
-        hours.showIt();
+        days.showIt();
         break;
       case 4:
+        hours.showIt();
+        break;
+      case 5:
         users.showIt();
         break;
       default:
@@ -38,6 +41,11 @@ var App = React.createClass({
           <h2>Geo Tweets by Country</h2>
           <div id='world'></div>
           <div id='country'></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Media Hot Spots'>
+          <h2>Geo Tweets with Images</h2>
+          <div id='mediaWorld'></div>
+          <div id='mediaCountry'></div>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
           <h2>Peak Geo Tweeting Days by Country</h2>
