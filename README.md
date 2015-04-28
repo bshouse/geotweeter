@@ -1,4 +1,5 @@
 # GeoTweeter
 Visualize GeoTagged Tweets
 
-See the Wiki for usage information.
+See the [Wiki](https://github.com/bshouse/geotweeter/wiki)
+ for usage information.
