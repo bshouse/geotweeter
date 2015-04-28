@@ -9,18 +9,24 @@ var countries;
 //Heat map coloring
 //Provide a range minimum and maximum along with the target value
 //Returns a CSS ready RGB value
-var rgb = function(minimum, maximum, value) {
-	var ratio = 2 * (value - minimum) / (maximum - minimum);
-	var b = 255 * (1 - ratio);
-	if (b < 0) {
-		b = 0;
+var rgb = function(heats, value) {
+	var index = Math.floor(heats.length/6);
+	var colors = ['rgb(254,235,226)','rgb(252,197,192)',
+				  'rgb(250,159,181)','rgb(247,104,161)',
+				  'rgb(197,27,138)' ,'rgb(122,1,119)'];
+	if( value < heats[index]){
+		return colors[0];
+	}else if ( value <= heats[index*2]){
+		return colors[1];
+	}else if ( value <= heats[index*3]){
+		return colors[2];
+	}else if ( value <= heats[index*4]){
+		return colors[3];
+	}else if ( value <= heats[index*5]){
+		return colors[4];
+	}else{
+		return colors[5];
 	}
-	var r = 255 * (ratio - 1);
-	if (r < 0) {
-		r = 0;
-	}
-	var g = 255 - b - r;
-	return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
 };
 
 var createSummary = function() {
@@ -92,21 +98,16 @@ var countrySum = function(country) {
 
 var countryCode = function() {
 	console.log("Starting countryCode");
-	var min = 100;
-	var max = 0;
+	var heats = [];
 	for (var x = 0; x < countries.length; x++) {
 		summary[countries[x]].percent = summary[countries[x]].textMatch / summary[countries[x]].total;
-		if (summary[countries[x]].percent < min) {
-			min = summary[countries[x]].percent;
-		}
-		if (summary[countries[x]].percent > max) {
-			max = summary[countries[x]].percent;
-		}
+		heats.push(summary[countries[x]].percent);
 	}
+	heats.sort(function(a,b){return a-b;});
 	console.log("Creating HeatMap");
 	for (var x = 0; x < countries.length; x++) {
 		if (summary[countries[x]].total) {
-			summary[countries[x]].heat = rgb(min, max, summary[countries[x]].percent);
+			summary[countries[x]].heat = rgb(heats, summary[countries[x]].percent);
 		}
 	};
 	wrapIt();

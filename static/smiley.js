@@ -70,11 +70,10 @@ function worldText(countryGeo) {
         .attr("d", path)
         .attr("stroke", "#222")
         .attr("fill", function(d) { return (worldTextSummary[d.properties["ADMIN"]] ? worldTextSummary[d.properties["ADMIN"]].heat : "url(#diagonalHatch)");} )
-      .on("click", function(d) { getCountrySummary(d.properties["ADMIN"]); })
       .append("svg:title")
         .text(function(d, i) {
-          if(worldHotSpotSummary[d.properties["ADMIN"]]) {
-            return d.properties["ADMIN"]+" "+numberWithCommas(worldTextSummary[d.properties["ADMIN"]].textMatch) +" of "+numberWithCommas(worldTextSummary.total)+" tweets";
+          if(worldTextSummary[d.properties["ADMIN"]]) {
+            return d.properties["ADMIN"]+" "+numberWithCommas(worldTextSummary[d.properties["ADMIN"]].textMatch) +" of "+numberWithCommas(worldTextSummary[d.properties["ADMIN"]].total)+" tweets";
           } else {
             return d.properties["ADMIN"];
           }
