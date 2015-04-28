@@ -107,7 +107,7 @@ var countrySum = function() {
 	summary.total=worldSummary[country].total;
 	summary.places = worldSummary[country].places;
 	summary.points = worldSummary[country].points;
-	summary.points = worldSummary[country].media //added by pg
+	summary.media = worldSummary[country].media //added by pg
 
 	if(states.length != 0) {
 		statePos=0;
