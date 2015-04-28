@@ -28,7 +28,7 @@ var App = React.createClass({
       case 5:
         users.showIt();
         break;
-      case 5:
+      case 6:
         travel.showIt();
         break;
       default:
