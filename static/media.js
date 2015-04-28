@@ -72,6 +72,7 @@ function worldHotspots(countryGeo) {
         .attr("d", path)
         .attr("stroke", "#222")
         .attr("fill", function(d) { return (worldHotSpotSummary[d.properties["ADMIN"]] ? worldHotSpotSummary[d.properties["ADMIN"]].mediaHeat : "url(#diagonalHatch)");} )
+        .on("click", function(d) { getCountrySummary(d.properties["ADMIN"]); })
       .append("svg:title")
         .text(function(d, i) {
           if(worldHotSpotSummary[d.properties["ADMIN"]]) {
@@ -183,13 +184,17 @@ var emptyCountry = function() {
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
-  myNode = document.getElementById("mediaWorld");
+};
+
+var emptyWorld = function() {
+  var myNode = document.getElementById("mediaWorld");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
 };
 
 var kickOff = function() {
+  emptyWorld();
   emptyCountry();
   worldHotspots(c);
 };
