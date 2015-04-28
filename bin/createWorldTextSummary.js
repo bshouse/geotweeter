@@ -10,10 +10,10 @@ var countries;
 //Provide a range minimum and maximum along with the target value
 //Returns a CSS ready RGB value
 var rgb = function(heats, value) {
-	var index = Math.floor(heats.length/6);
-	var colors = ['rgb(254,235,226)','rgb(252,197,192)',
-				  'rgb(250,159,181)','rgb(247,104,161)',
-				  'rgb(197,27,138)' ,'rgb(122,1,119)'];
+	var index = Math.floor(heats.length/9);
+	var colors = ['rgb(247,244,249)','rgb(231,225,239)','rgb(212,185,218)',
+				  'rgb(201,148,199)','rgb(223,101,176)','rgb(231,41,138)',
+				  'rgb(206,18,86)','rgb(152,0,67)','rgb(103,0,31)'];
 	if( value < heats[index]){
 		return colors[0];
 	}else if ( value <= heats[index*2]){
@@ -24,8 +24,14 @@ var rgb = function(heats, value) {
 		return colors[3];
 	}else if ( value <= heats[index*5]){
 		return colors[4];
-	}else{
+	}else if ( value <= heats[index*6]){
 		return colors[5];
+	}else if ( value <= heats[index*7]){
+		return colors[6];
+	}else if ( value <= heats[index*8]){
+		return colors[7];
+	}else{
+		return colors[8];
 	}
 };
 
