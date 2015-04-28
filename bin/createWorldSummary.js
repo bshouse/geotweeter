@@ -90,7 +90,7 @@ var createSummary = function() {
 };
 
 var countrySum = function(country) {
-	
+
 	summary[country] = {};
 	collection.count({
 		"properties.country": country
@@ -112,7 +112,7 @@ var countrySum = function(country) {
 			summary[country].places = count;
 		}
 		wrapIt();
-	}); 
+	});
 	collection.count({
 		"properties.point": true,
 		"properties.country": country
@@ -158,14 +158,37 @@ var countryCode = function() {
 			summary[countries[x]].heat = rgb(min, max, summary[countries[x]].percent);
 		}
 	};
+};
+
+var mediaCode = function() {
+	console.log("Starting mediaCode");
+	var min = 100;
+	var max = 0;
+	for (var x = 0; x < countries.length; x++) {
+		summary[countries[x]].mediaPercent = summary[countries[x]].media / summary.media;
+		if (summary[countries[x]].mediaPercent < min) {
+			min = summary[countries[x]].mediaPercent;
+		}
+		if (summary[countries[x]].mediaPercent > max) {
+			max = summary[countries[x]].mediaPercent;
+		}
+	}
+	console.log("Creating Media HeatMap");
+	for (var x = 0; x < countries.length; x++) {
+		if (summary[countries[x]].media) {
+			summary[countries[x]].mediaHeat = rgb(min, max, summary[countries[x]].mediaPercent);
+		}
+	};
 	wrapIt();
 };
+
 
 var wrapIt = function() {
 	summaryLength -= 1;
 	if (summaryLength == 1) {
 		//DB queries done
 		countryCode();
+		mediaCode();
 	} else if (summaryLength == 0) {
 		console.log('Saving World Summary');
 		db.collection('summary').update({"name": "World"}, summary, {upsert: true, w:1, safe:true},function(err) { if(err) { console.error(err.message); } db.close(); });

@@ -1,15 +1,15 @@
-var hotspot = (function () {
+var media = (function () {
 console.log('init');
 var worldHotSpotSummary;
 
 
 
-console.log('Loading World Hot Spot Summary');
+console.log('Loading World Media Hot Spot Summary');
 var req = new XMLHttpRequest();
 req.open("GET", "/summary", true);
 req.addEventListener("load", function() {
   worldHotSpotSummary = JSON.parse(req.responseText);
-  console.log("loaded world Hot Spot Summary");
+  console.log("loaded world Media Hot Spot Summary");
 });
 req.send(null);
 
@@ -40,7 +40,7 @@ function worldHotspots(countryGeo) {
   var projection = d3.geo.azimuthalEquidistant().scale(1).translate([0,0]);
   var path = d3.geo.path().projection(projection);
 
-  var vis = d3.select("#world").append("svg").attr("width", width).attr("height", height);
+  var vis = d3.select("#mediaWorld").append("svg").attr("width", width).attr("height", height);
 
 
   var bounds = path.bounds(countryGeo);
@@ -71,12 +71,12 @@ function worldHotspots(countryGeo) {
       .enter().append("path")
         .attr("d", path)
         .attr("stroke", "#222")
-        .attr("fill", function(d) { return (worldHotSpotSummary[d.properties["ADMIN"]] ? worldHotSpotSummary[d.properties["ADMIN"]].heat : "url(#diagonalHatch)");} )
-      .on("click", function(d) { getCountrySummary(d.properties["ADMIN"]); })
+        .attr("fill", function(d) { return (worldHotSpotSummary[d.properties["ADMIN"]] ? worldHotSpotSummary[d.properties["ADMIN"]].mediaHeat : "url(#diagonalHatch)");} )
+        .on("click", function(d) { getCountrySummary(d.properties["ADMIN"]); })
       .append("svg:title")
         .text(function(d, i) {
           if(worldHotSpotSummary[d.properties["ADMIN"]]) {
-            return d.properties["ADMIN"]+" "+numberWithCommas(worldHotSpotSummary[d.properties["ADMIN"]].total) +" of "+numberWithCommas(worldHotSpotSummary.total)+" tweets";
+            return d.properties["ADMIN"]+" "+numberWithCommas(worldHotSpotSummary[d.properties["ADMIN"]].media) +" of "+numberWithCommas(worldHotSpotSummary.media)+" tweets";
           } else {
             return d.properties["ADMIN"];
           }
@@ -137,11 +137,11 @@ function countryHotSpots() {
       .enter().append("path")
         .attr("d", path)
         .attr("stroke", "#222")
-        .attr("fill", function(d) { return (countryHotSpotSummary[d.properties["name"]] ? countryHotSpotSummary[d.properties["name"]].heat : "url(#diagonalHatch)");} )
+        .attr("fill", function(d) { return (countryHotSpotSummary[d.properties["name"]] ? countryHotSpotSummary[d.properties["name"]].mediaHeat : "url(#diagonalHatch)");} )
       .append("svg:title")
         .text(function(d, i) {
           if(countryHotSpotSummary[d.properties.name]) {
-            return d.properties.name+" "+numberWithCommas(countryHotSpotSummary[d.properties.name].total) +" of "+numberWithCommas(countryHotSpotSummary.total)+" tweets";
+            return d.properties.name+" "+numberWithCommas(countryHotSpotSummary[d.properties.name].media) +" of "+numberWithCommas(countryHotSpotSummary.media)+" tweets";
           } else {
             return d.properties.name;
           }
@@ -179,24 +179,23 @@ var getCountrySummary = function(countryName) {
   reqCountrySummary.send(null);
   emptyCountry();
 };
-
 var emptyCountry = function() {
-  var myNode = document.getElementById("country");
+  var myNode = document.getElementById("mediaCountry");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
 };
 
 var emptyWorld = function() {
-  var myNode = document.getElementById("world");
+  var myNode = document.getElementById("mediaWorld");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
 };
 
 var kickOff = function() {
-  emptyCountry();
   emptyWorld();
+  emptyCountry();
   worldHotspots(c);
 };
 

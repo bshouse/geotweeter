@@ -17,15 +17,21 @@ var App = React.createClass({
         hotspot.showIt();
         break;
       case 2:
-        days.showIt();
+        media.showIt();
         break;
       case 3:
-        hours.showIt();
+        days.showIt();
         break;
       case 4:
-        users.showIt();
+        hours.showIt();
         break;
       case 5:
+        users.showIt();
+        break;
+      case 6:
+        travel.showIt();
+        break;
+      case 7:
         smiley.showIt();
         break;
       default:
@@ -42,6 +48,11 @@ var App = React.createClass({
           <div id='world'></div>
           <div id='country'></div>
         </Tabs.Panel>
+        <Tabs.Panel title='Media Hot Spots'>
+          <h2>Geo Tweets with Images</h2>
+          <div id='mediaWorld'></div>
+          <div id='mediaCountry'></div>
+        </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
           <h2>Peak Geo Tweeting Days by Country</h2>
           <div id='dayCountrySelect'></div>
@@ -57,6 +68,12 @@ var App = React.createClass({
           <div id="smallCountsChart"></div>
           <h2>Screen Names Changes</h2>
           <div id="screenNameChart"></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Travel'>
+          <h2>Number of users by Country count.</h2>
+          <div id="countryTravelChart"></div>
+          <h2>Number of users by State/Province count.</h2>
+          <div id="stateTravelChart"></div>
         </Tabs.Panel>
         <Tabs.Panel title='Smiley Tweets'>
           <h2>Smiley Tweets by Country</h2>
