@@ -28,6 +28,9 @@ var App = React.createClass({
       case 5:
         users.showIt();
         break;
+      case 5:
+        travel.showIt();
+        break;
       default:
         console.log('unknown tab: '+selectedIndex)
         break;
@@ -62,6 +65,12 @@ var App = React.createClass({
           <div id="smallCountsChart"></div>
           <h2>Screen Names Changes</h2>
           <div id="screenNameChart"></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Travel'>
+          <h2>Number of users by Country count.</h2>
+          <div id="countryTravelChart"></div>
+          <h2>Number of users by State/Province count.</h2>
+          <div id="stateTravelChart"></div>
         </Tabs.Panel>
       </Tabs>
     );
