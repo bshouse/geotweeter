@@ -40,12 +40,12 @@ var createSummary = function() {
 			console.error("Error - distinct countries: " + err.message);
 			process.exit();
 		} else {
-			countries = docs;	
+			countries = docs;
 		}
-		
+
 	});
 
-	console.log('Loading World Summary');	
+	console.log('Loading World Summary');
 	db.collection('summary').find({'name': 'World'},
 	 function(err, cursor) {
 		if (err) {
@@ -59,15 +59,15 @@ var createSummary = function() {
 				} else {
 					if(arr.length == 0) {
 						console.error('Missing World Summary. Try running createWorldSummary.js first');
-						process.exit();					
+						process.exit();
 					}
 					worldSummary=arr[0];
-				} 
+				}
 			});
-			
+
 		}
 	});
-	
+
 	countrySum();
 
 };
@@ -79,28 +79,28 @@ var loadStates = function () {
 			console.error("Error - distinct states: " + err.message);
 		} else {
 			states = docs;
-			countrySum();	
+			countrySum();
 		}
 	});
 };
 
-var countrySum = function() {	
+var countrySum = function() {
 	if(countries == null || worldSummary == null) {
 		setTimeout(countrySum,1000);
-		return;	
+		return;
 	}
 	if(countryPos == countries.length) {
 		console.log('Done.');
 		db.close();
 		process.exit();
-	}	
-	
+	}
+
 	country = countries[countryPos];
 	if(states == null) {
 		loadStates();
 		return;
 	}
-	
+
 	console.log('Creating a Country summary for: '+country);
 	summary={};
 	summary.name=country;
@@ -116,7 +116,7 @@ var countrySum = function() {
 		console.log(country+' has no states');
 		saveCountry();
 	}
-	
+
 };
 var stateSum = function () {
 	state = states[statePos];
@@ -179,12 +179,35 @@ var wrapState = function() {
 		summaryPos=0;
 		statePos++;
 		if(statePos < states.length) {
-			stateSum();			
+			stateSum();
 		} else {
-			stateCode(); //Heat map & percents
+			stateMediaCode(); //Media Heat map & percents
+			stateCode(); //Hotspot Heat map & percents
 		}
 	}
 };
+
+var stateMediaCode = function() {
+	console.log("Starting stateMediaCode");
+	var min = 100;
+	var max = 0;
+	for (var x = 0; x < states.length; x++) {
+		summary[states[x]].mediaPercent = summary[states[x]].media / summary.media;
+		if (summary[states[x]].mediaPercent < min) {
+			min = summary[states[x]].mediaPercent;
+		}
+		if (summary[states[x]].mediaPercent > max) {
+			max = summary[states[x]].mediaPercent;
+		}
+	}
+	console.log("Creating Media HeatMap");
+	for (var x = 0; x < states.length; x++) {
+		if (summary[states[x]].media) {
+			summary[states[x]].mediaHeat = rgb(min, max, summary[states[x]].mediaPercent);
+		}
+	};
+};
+
 
 var stateCode = function() {
 	console.log("Starting stateCode");
@@ -210,9 +233,9 @@ var stateCode = function() {
 
 var saveCountry = function () {
 	db.collection('summary').update({"name": country}, summary, {upsert: true, w:1, safe:true},
-		function(err) { 
-			if(err) { 
-				console.error(err.message); 
+		function(err) {
+			if(err) {
+				console.error(err.message);
 			}
 			states=null;
 			countryPos++;
