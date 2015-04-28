@@ -28,8 +28,11 @@ var App = React.createClass({
       case 5:
         users.showIt();
         break;
-      case 5:
+      case 6:
         travel.showIt();
+        break;
+      case 7:
+        smiley.showIt();
         break;
       default:
         console.log('unknown tab: '+selectedIndex)
@@ -71,6 +74,10 @@ var App = React.createClass({
           <div id="countryTravelChart"></div>
           <h2>Number of users by State/Province count.</h2>
           <div id="stateTravelChart"></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Smiley Tweets'>
+          <h2>Smiley Tweets by Country</h2>
+          <div id="worldText"></div>
         </Tabs.Panel>
       </Tabs>
     );

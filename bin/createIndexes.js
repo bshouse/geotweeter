@@ -14,7 +14,8 @@ var twitterIndex = [
 	'properties.local_doy',
 	{"properties.country": 1, "properties.local_dow": 1},
 	{"properties.country": 1, "properties.local_hour": 1},
-	{"properties.country": 1, "properties.local_doy": 1}
+	{"properties.country": 1, "properties.local_doy": 1},
+	'properties.text'
 ];
 var createIndex = function(index,collection) {
 	indexes++;
