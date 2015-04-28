@@ -55,12 +55,14 @@ var countrySum = function(country) {
 	});
 
 	//Regular expression matching for the following smiley faces:
-    //:) :D ;) :-) :P =) ;-) =D =] :] =P :-D ^_^ (: (8 (;
+    //:) :D :-D ;) :-) :P :p :-P :-p =) ;-) =D =] :] =P :-D ^_^ (^^) (: (8 (;
 	collection.count({
 		"properties.country": country,
 		$or:[
 			{"properties.text":{$regex:/\:\)/}},
 			{"properties.text":{$regex:/\:D/}},	
+			{"properties.text":{$regex:/\:\-D/}},
+			{"properties.text":{$regex:/\(\^\^\)/}},	
 			{"properties.text":{$regex:/\;\)/}},
 			{"properties.text":{$regex:/\:\-\)/}},
 			{"properties.text":{$regex:/\:p/}},
@@ -72,7 +74,10 @@ var countrySum = function(country) {
 			{"properties.text":{$regex:/\^\_\^/}},
 			{"properties.text":{$regex:/\(\:/}},
 			{"properties.text":{$regex:/\(8/}},
-			{"properties.text":{$regex:/\(\;/}},	
+			{"properties.text":{$regex:/\(\;/}},
+			{"properties.text":{$regex:/\:\-P/}},
+			{"properties.text":{$regex:/\:\-p/}},
+			{"properties.text":{$regex:/\:p/}},	
 			{'properties.text':/😄|😃|😀|😊|☺|😉|😍|😘|😚|😗|😙|😜|😝|😛|😁|😇|😏|👮|👷|👶|👦|👧|👨|👩|👴|👵|👱|👼|👸|😺|😸|👹|👽|💩/}
 		]
 	}, {}, function(err, count) {

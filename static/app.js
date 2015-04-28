@@ -25,6 +25,9 @@ var App = React.createClass({
       case 4:
         users.showIt();
         break;
+      case 5:
+        smiley.showIt();
+        break;
       default:
         console.log('unknown tab: '+selectedIndex)
         break;
@@ -54,6 +57,10 @@ var App = React.createClass({
           <div id="smallCountsChart"></div>
           <h2>Screen Names Changes</h2>
           <div id="screenNameChart"></div>
+        </Tabs.Panel>
+        <Tabs.Panel title='Smiley Tweets'>
+          <h2>Smiley Tweets by Country</h2>
+          <div id="worldText"></div>
         </Tabs.Panel>
       </Tabs>
     );
