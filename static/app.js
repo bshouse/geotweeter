@@ -64,16 +64,28 @@ var App = React.createClass({
           <div id='hourChart'></div>
         </Tabs.Panel>
         <Tabs.Panel title='Users'>
-          <h2>Number of users by Tweet count.</h2>
-          <div id="smallCountsChart"></div>
-          <h2>Screen Names Changes</h2>
-          <div id="screenNameChart"></div>
+          <table>
+            <tr>
+              <th><h2>Number of users by Tweet count.</h2></th>
+              <th><h2>Screen Names Changes</h2></th>
+            </tr>
+            <tr>
+              <td><div id="smallCountsChart"></div></td>
+              <td><div id="screenNameChart"></div></td>
+            </tr>
+          </table>
         </Tabs.Panel>
         <Tabs.Panel title='Travel'>
-          <h2>Number of users by Country count.</h2>
-          <div id="countryTravelChart"></div>
-          <h2>Number of users by State/Province count.</h2>
-          <div id="stateTravelChart"></div>
+        <table>
+          <tr>
+            <th><h2>Number of users by Country count.</h2></th>
+            <th><h2>Number of users by State/Province count.</h2></th>
+          </tr>
+          <tr>
+            <td><div id="countryTravelChart"></div></td>
+            <td><div id="stateTravelChart"></div></td>
+          </tr>
+        </table>
         </Tabs.Panel>
         <Tabs.Panel title='Smiley Tweets'>
           <h2>Smiley Tweets by Country</h2>
