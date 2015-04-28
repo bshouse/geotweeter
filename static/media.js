@@ -76,7 +76,7 @@ function worldHotspots(countryGeo) {
       .append("svg:title")
         .text(function(d, i) {
           if(worldHotSpotSummary[d.properties["ADMIN"]]) {
-            return d.properties["ADMIN"]+" "+numberWithCommas(worldHotSpotSummary[d.properties["ADMIN"]].media) +" of "+numberWithCommas(worldHotSpotSummary.media)+" tweets";
+            return d.properties["ADMIN"]+" "+numberWithCommas(worldHotSpotSummary[d.properties["ADMIN"]].media) +" of "+numberWithCommas(worldHotSpotSummary.media)+" image tweets";
           } else {
             return d.properties["ADMIN"];
           }
@@ -141,7 +141,7 @@ function countryHotSpots() {
       .append("svg:title")
         .text(function(d, i) {
           if(countryHotSpotSummary[d.properties.name]) {
-            return d.properties.name+" "+numberWithCommas(countryHotSpotSummary[d.properties.name].media) +" of "+numberWithCommas(countryHotSpotSummary.media)+" tweets";
+            return d.properties.name+" "+numberWithCommas(countryHotSpotSummary[d.properties.name].media) +" of "+numberWithCommas(countryHotSpotSummary.media)+" image tweets";
           } else {
             return d.properties.name;
           }
