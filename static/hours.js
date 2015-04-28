@@ -134,7 +134,6 @@ var cleanUp = function() {
 			if(data) {
 				cleanUp();
 				countrySelect(); //Add the drop-down country list to the page
-				drawHours(); //Chart the world tweeting hours
 			} else {
 				setTimeout(showIt,500);
 			}
