@@ -128,8 +128,7 @@ function countryHotSpots() {
           }
         });
 
-        alertify.defaults.glossary.title=countryHotSpotSummary.name;
-        alertify.alert(svg).set('resizable',true).resizeTo(700,640);
+        alertify.alert(countryHotSpotSummary.name,svg).set('resizable',true).resizeTo(700,640);
         console.log("Map svg done: "+countryHotSpotSummary.name);
 };
 
