@@ -76,25 +76,36 @@ function worldText(countryGeo) {
 var drawLegend = function(div) {
   console.log('drawCountryDays');
 
-  var width = 50;
-  var height = 100;
+  var width = 250;
+  var height = 200;
   var colors = ['rgb(247,244,249)','rgb(231,225,239)','rgb(212,185,218)',
-          'rgb(201,148,199)','rgb(223,101,176)','rgb(231,41,138)',
-          'rgb(206,18,86)','rgb(152,0,67)','rgb(103,0,31)'];
-  var vis = d3.select("#"+div).append("svg").attr("width", width).attr("height", height);
+                'rgb(201,148,199)','rgb(223,101,176)','rgb(231,41,138)',
+                'rgb(206,18,86)','rgb(152,0,67)','rgb(103,0,31)'];
 
-  vis.append("svg")
-     .attr("width", 200)
-     .attr("height", 200);
+  var vis = d3.select("#"+div).append("svg").attr("width", width).attr("height", height);
 
   for(var x = 0; x < colors.length; x++){
     vis.append("rect")
-       .attr("x", 10)
-       .attr("y", (x+1)*10)
+       .attr("x", 100)
+       .attr("y", 50 + x * 10)
        .attr("width", 50)
        .attr("height", 10)
-       .style("fill", function(d) {return colors[colors.length - x];});
+       .style("fill", function(d) {return colors[colors.length - (x+1)];});
   }
+
+  vis.append("text")
+    .attr("x", 70)
+    .attr("y", 30)
+    .attr("dy", ".25em")
+    .attr("font-family", "sans-serif")
+    .text(function(d) { return "Highest Percent"; });
+
+  vis.append("text")
+    .attr("x", 70)
+    .attr("y", 160)
+    .attr("dy", ".25em")
+    .attr("font-family", "sans-serif")
+    .text(function(d) { return "Lowest Percent"; });
 };
 
 

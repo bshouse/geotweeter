@@ -101,7 +101,7 @@ var App = React.createClass({
         <Tabs.Panel title='Smiley Tweets'>
         <table>
           <tr>
-            <th><h2>Smiley Tweets</h2></th>
+            <th><h2>Countries Percentage of Smiley Tweets </h2></th>
           </tr>
           <tr>
             <td><div id="worldText"></div></td>
