@@ -54,9 +54,20 @@ var App = React.createClass({
           <div id='mediaCountry'></div>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
-          <h2>Peak Geo Tweeting Days by Country</h2>
-          <div id='dayCountrySelect'></div>
-          <div id='dayChart'></div>
+          <table>
+            <tr>
+              <th><h2>Peak Geo Tweeting Days by Country</h2></th>
+              <th><h2>Peak Media Geo Tweeting Days by Country</h2></th>
+            </tr>
+            <tr>
+              <td><div id='dayCountrySelect'></div></td>
+              <td><div id='dayMediaSelect'></div></td>
+            </tr>
+            <tr>
+              <td><div id='dayCountryChart'></div></td>
+              <td><div id='dayMediaChart'></div></td>
+            </tr>
+          </table>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Hours'>
           <h2>Peak Geo Tweeting Hours by Country</h2>
