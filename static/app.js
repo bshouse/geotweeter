@@ -55,24 +55,43 @@ var App = React.createClass({
         </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
           <table>
-            <tr>
-              <th><h2>Peak Geo Tweeting Days by Country</h2></th>
-              <th><h2>Peak Media Geo Tweeting Days by Country</h2></th>
-            </tr>
-            <tr>
-              <td><div id='dayCountrySelect'></div></td>
-              <td><div id='dayMediaSelect'></div></td>
-            </tr>
-            <tr>
-              <td><div id='dayCountryChart'></div></td>
-              <td><div id='dayMediaChart'></div></td>
-            </tr>
+            <thead>
+              <tr>
+                <th><h2>Peak Geo Tweeting Days by Country</h2></th>
+                <th><h2>Peak Media Geo Tweeting Days by Country</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div id='dayCountrySelect'></div></td>
+                <td><div id='dayMediaSelect'></div></td>
+              </tr>
+              <tr>
+                <td><div id='dayCountryChart'></div></td>
+                <td><div id='dayMediaChart'></div></td>
+              </tr>
+            </tbody>
           </table>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Hours'>
-          <h2>Peak Geo Tweeting Hours by Country</h2>
-          <div id='hourCountrySelect'></div>
-          <div id='hourChart'></div>
+          <table>
+            <thead>
+              <tr>
+                <th><h2>Peak Geo Tweeting Hours by Country</h2></th>
+                <th><h2>Peak Media Geo Tweeting Hours by Country</h2></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div id='hourCountrySelect'></div></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td><div id='hourChart'></div></td>
+                <td><div id='hourMediaChart'></div></td>
+              </tr>
+            </tbody>
+          </table>
         </Tabs.Panel>
         <Tabs.Panel title='Users'>
           <table>

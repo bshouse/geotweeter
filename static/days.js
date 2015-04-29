@@ -6,6 +6,11 @@ var world; //World Day summary cache
 var data; //Active location data
 var media_data;
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+
 var drawCountryDays = function(chartDiv) {
 	console.log('drawCountryDays');
 	var names = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
@@ -57,7 +62,7 @@ var drawCountryDays = function(chartDiv) {
       .attr('height', function(d) { return height - y(d); })
       .append("svg:title")
 				.text(function(d, i) {
-					return names[i]+': '+d+' tweets';
+					return names[i]+': '+numberWithCommas(d)+' tweets';
 
 				});
 	console.log('done');
@@ -115,7 +120,7 @@ var drawMediaDays = function(chartDiv) {
       .attr('height', function(d) { return height - y(d); })
       .append("svg:title")
 				.text(function(d, i) {
-					return names[i]+': '+d+' image tweets';
+					return names[i]+': '+numberWithCommas(d)+' image tweets';
 				});
 	console.log('drawMediaDays: done');
 
@@ -183,6 +188,12 @@ var cleanUp = function() {
    	c.removeChild(c.firstChild);
 	}
 	c = document.getElementById("dayCountrySelect");
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+	c.style.height='auto';
+
+	c = document.getElementById(mediaDiv);
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
