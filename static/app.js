@@ -5,7 +5,7 @@ var Tabs = ReactSimpleTabs;
 var App = React.createClass({
   onMount: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
     console.log('on mount, showing tab ' + selectedIndex);
-    hotspot.showIt();
+    hotspot.showIt(assetLoader);
   },
   onBeforeChange: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
     console.log('before the tab ' + selectedIndex);
@@ -14,10 +14,10 @@ var App = React.createClass({
     console.log('after the tab ' + selectedIndex);
     switch(selectedIndex) {
       case 1:
-        hotspot.showIt();
+        hotspot.showIt(assetLoader);
         break;
       case 2:
-        media.showIt();
+        media.showIt(assetLoader);
         break;
       case 3:
         days.showIt();
@@ -32,7 +32,7 @@ var App = React.createClass({
         travel.showIt();
         break;
       case 7:
-        smiley.showIt();
+        smiley.showIt(assetLoader);
         break;
       default:
         console.log('unknown tab: '+selectedIndex)
@@ -54,9 +54,20 @@ var App = React.createClass({
           <div id='mediaCountry'></div>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Days'>
-          <h2>Peak Geo Tweeting Days by Country</h2>
-          <div id='dayCountrySelect'></div>
-          <div id='dayChart'></div>
+          <table>
+            <tr>
+              <th><h2>Peak Geo Tweeting Days by Country</h2></th>
+              <th><h2>Peak Media Geo Tweeting Days by Country</h2></th>
+            </tr>
+            <tr>
+              <td><div id='dayCountrySelect'></div></td>
+              <td><div id='dayMediaSelect'></div></td>
+            </tr>
+            <tr>
+              <td><div id='dayCountryChart'></div></td>
+              <td><div id='dayMediaChart'></div></td>
+            </tr>
+          </table>
         </Tabs.Panel>
         <Tabs.Panel title='Peak Hours'>
           <h2>Peak Geo Tweeting Hours by Country</h2>
