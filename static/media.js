@@ -145,18 +145,14 @@ var buildMap = function(countryName) {
   country=tCountry;
 };
 
-
+var draw = function(data) {
+  countryHotSpotSummary = data;
+  countryHotSpots();
+};
 
 var getCountrySummary = function(countryName) {
   buildMap(countryName);
-  var reqCountrySummary = new XMLHttpRequest();
-  reqCountrySummary.open("GET", "/summary?location="+countryName, true);
-  reqCountrySummary.addEventListener("load", function() {
-    console.log('Country Summary loaded for: '+countryName);
-    countryHotSpotSummary = JSON.parse(reqCountrySummary.responseText);
-    countryHotSpots();
-  });
-  reqCountrySummary.send(null);
+  assets.getCountryTweetSummary(countryName, draw);
   emptyCountry();
 };
 var emptyCountry = function() {
@@ -174,7 +170,7 @@ var emptyWorld = function() {
 };
 
 var kickOff = function() {
-  worldHotSpotSummary = assets.getWorldSummary();
+  worldHotSpotSummary = assets.getWorldTweetSummary();
   states = assets.getStateGeo();
   if(worldHotSpotSummary && states) {
     emptyWorld();
