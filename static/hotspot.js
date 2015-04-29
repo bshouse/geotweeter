@@ -128,8 +128,7 @@ function countryHotSpots() {
           }
         });
 
-        alertify.defaults.glossary.title=countryHotSpotSummary.name;
-        alertify.alert(svg).set('resizable',true).resizeTo(700,640);
+        alertify.alert(countryHotSpotSummary.name,svg).set('resizable',true).resizeTo(700,640);
         console.log("Map svg done: "+countryHotSpotSummary.name);
 };
 
@@ -146,18 +145,15 @@ var buildMap = function(countryName) {
   country=tCountry;
 };
 
+var draw = function(data) {
+  countryHotSpotSummary = data;
+  countryHotSpots();
+};
 
 
 var getCountrySummary = function(countryName) {
   buildMap(countryName);
-  var reqCountrySummary = new XMLHttpRequest();
-  reqCountrySummary.open("GET", "/summary?location="+countryName, true);
-  reqCountrySummary.addEventListener("load", function() {
-    console.log('Country Summary loaded for: '+countryName);
-    countryHotSpotSummary = JSON.parse(reqCountrySummary.responseText);
-    countryHotSpots();
-  });
-  reqCountrySummary.send(null);
+  assets.getCountryTweetSummary(countryName, draw);
   emptyCountry();
 };
 
@@ -176,7 +172,7 @@ var emptyWorld = function() {
 };
 
 var kickOff = function() {
-  worldHotSpotSummary = assets.getWorldSummary();
+  worldHotSpotSummary = assets.getWorldTweetSummary();
   states = assets.getStateGeo();
   if(worldHotSpotSummary && states) {
     emptyCountry();
