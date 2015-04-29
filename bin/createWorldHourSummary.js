@@ -2,11 +2,13 @@ var pkg = require('../package.json'); //Application Settings
 var fs = require('fs');
 var db;
 var collection; //Twitter Collection
-var summaryLength = 26;
+var summaryLength = 51;
 var summary = {}; //Tweets by country, total tweets, place/point geotag
 summary.name="World Hour";
 summary.total = 0;
 summary.hour=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+summary.media = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+summary.media_total = 0; 
 var countries;
 
 
@@ -260,6 +262,278 @@ var createSummary = function() {
 		}
 		wrapIt();
 	});
+	collection.count({"properties.media": {$ne: "Image Not Found"}}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media_total: " + err.message);
+		} else {
+			summary.media_total = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "00",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[0]: " + err.message);
+		} else {
+			summary.media[0] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "01",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[1]: " + err.message);
+		} else {
+			summary.media[1] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "02",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[2]: " + err.message);
+		} else {
+			summary.media[2] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "03",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[3]: " + err.message);
+		} else {
+			summary.media[3] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "04",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[4]: " + err.message);
+		} else {
+			summary.media[4] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "05",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[5]: " + err.message);
+		} else {
+			summary.media[5] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "06",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[6]: " + err.message);
+		} else {
+			summary.media[6] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "07",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[7]: " + err.message);
+		} else {
+			summary.media[7] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "08",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[8]: " + err.message);
+		} else {
+			summary.media[8] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "09",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[9]: " + err.message);
+		} else {
+			summary.media[9] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "10",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[10]: " + err.message);
+		} else {
+			summary.media[10] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "11",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[11]: " + err.message);
+		} else {
+			summary.media[11] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "12",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[12]: " + err.message);
+		} else {
+			summary.media[12] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "13",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[13]: " + err.message);
+		} else {
+			summary.media[13] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "14",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[14]: " + err.message);
+		} else {
+			summary.media[14] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "15",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[15]: " + err.message);
+		} else {
+			summary.media[15] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "16",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[16]: " + err.message);
+		} else {
+			summary.media[16] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "17",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[17]: " + err.message);
+		} else {
+			summary.media[17] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "18",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[18]: " + err.message);
+		} else {
+			summary.media[18] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "19",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[19]: " + err.message);
+		} else {
+			summary.media[19] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "20",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[20]: " + err.message);
+		} else {
+			summary.media[20] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "21",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[21]: " + err.message);
+		} else {
+			summary.media[21] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "22",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[22]: " + err.message);
+		} else {
+			summary.media[22] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.local_hour": "23",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary.media[23]: " + err.message);
+		} else {
+			summary.media[23] = count;
+		}
+		wrapIt();
+	});
 
 
 	collection.distinct("properties.country", function(err, docs) {
@@ -267,7 +541,7 @@ var createSummary = function() {
 			console.error("Error - distinct countries: " + err.message);
 		} else {
 			countries = docs;
-			summaryLength += (countries.length * 25);
+			summaryLength += (countries.length * 50);
 			for (var x = 0; x < countries.length; x++) {
 				countries[x] = countries[x].replace(/\./g,'_');
 				countrySum(countries[x]);
@@ -281,6 +555,9 @@ var countrySum = function(country) {
 	
 	summary[country] = {};
 	summary[country].hour=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	summary[country].country_media = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]; 
+	summary[country].country_media_total = 0; 
+
 	collection.count({"properties.country": country}, {}, function(err, count) {
 		if (err) {
 			console.error("Error - summary['+country+'].total: " + err.message);
@@ -553,6 +830,302 @@ var countrySum = function(country) {
 		}
 		wrapIt();
 	});
+	collection.count({"properties.country": country, "properties.media": {$ne: "Image Not Found"}}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media_total: " + err.message);
+		} else {
+			summary[country].country_media_total = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "00",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[0]: " + err.message);
+		} else {
+			summary[country].country_media[0] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "01",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[1]: " + err.message);
+		} else {
+			summary[country].country_media[1] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "02",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[2]: " + err.message);
+		} else {
+			summary[country].country_media[2] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "03",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[3]: " + err.message);
+		} else {
+			summary[country].country_media[3] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "04",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[4]: " + err.message);
+		} else {
+			summary[country].country_media[4] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "05",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[5]: " + err.message);
+		} else {
+			summary[country].country_media[5] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "06",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[6]: " + err.message);
+		} else {
+			summary[country].country_media[6] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "07",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[7]: " + err.message);
+		} else {
+			summary[country].country_media[7] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "08",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[8]: " + err.message);
+		} else {
+			summary[country].country_media[8] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "09",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[9]: " + err.message);
+		} else {
+			summary[country].country_media[9] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "10",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[10]: " + err.message);
+		} else {
+			summary[country].country_media[10] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "11",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[11]: " + err.message);
+		} else {
+			summary[country].country_media[11] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "12",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[12]: " + err.message);
+		} else {
+			summary[country].country_media[12] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "13",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[13]: " + err.message);
+		} else {
+			summary[country].country_media[13] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "14",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[14]: " + err.message);
+		} else {
+			summary[country].country_media[14] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "15",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[15]: " + err.message);
+		} else {
+			summary[country].country_media[15] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "16",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[16]: " + err.message);
+		} else {
+			summary[country].country_media[16] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "17",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[17]: " + err.message);
+		} else {
+			summary[country].country_media[17] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "18",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[18]: " + err.message);
+		} else {
+			summary[country].country_media[18] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "19",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[19]: " + err.message);
+		} else {
+			summary[country].country_media[19] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "20",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[20]: " + err.message);
+		} else {
+			summary[country].country_media[20] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "21",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[21]: " + err.message);
+		} else {
+			summary[country].country_media[21] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "22",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[22]: " + err.message);
+		} else {
+			summary[country].country_media[22] = count;
+		}
+		wrapIt();
+	});
+	collection.count({
+		"properties.country": country,
+		"properties.local_hour": "23",
+		"properties.media": {$ne: "Image Not Found"}
+	}, {}, function(err, count) {
+		if (err) {
+			console.error("Error - summary['+country+'].country_media[23]: " + err.message);
+		} else {
+			summary[country].country_media[23] = count;
+		}
+		wrapIt();
+	});
 
 
 };
@@ -577,3 +1150,4 @@ var dbLoaded = function(err, database) {
 	createSummary();
 };
 require('mongodb').MongoClient.connect(pkg.config.db_url, dbLoaded);
+
