@@ -78,17 +78,23 @@ var drawLegend = function(div) {
 
   var width = 50;
   var height = 100;
+  var colors = ['rgb(247,244,249)','rgb(231,225,239)','rgb(212,185,218)',
+          'rgb(201,148,199)','rgb(223,101,176)','rgb(231,41,138)',
+          'rgb(206,18,86)','rgb(152,0,67)','rgb(103,0,31)'];
   var vis = d3.select("#"+div).append("svg").attr("width", width).attr("height", height);
 
   vis.append("svg")
      .attr("width", 200)
      .attr("height", 200);
 
-  vis.append("rect")
-     .attr("x", 10)
-     .attr("y", 10)
-     .attr("width", 50)
-     .attr("height", 100);
+  for(var x = 0; x < colors.length; x++){
+    vis.append("rect")
+       .attr("x", 10)
+       .attr("y", (x+1)*10)
+       .attr("width", 50)
+       .attr("height", 10)
+       .style("fill", function(d) {return colors[colors.length - x];});
+  }
 };
 
 
