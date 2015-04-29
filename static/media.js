@@ -1,27 +1,8 @@
 var media = (function () {
 console.log('init');
 var worldHotSpotSummary;
-
-
-
-console.log('Loading World Media Hot Spot Summary');
-var req = new XMLHttpRequest();
-req.open("GET", "/summary", true);
-req.addEventListener("load", function() {
-  worldHotSpotSummary = JSON.parse(req.responseText);
-  console.log("loaded world Media Hot Spot Summary");
-});
-req.send(null);
-
-console.log('Loading GeoJSON for States/Provinces');
 var states;
-var reqStates = new XMLHttpRequest();
-reqStates.open("GET","ne_10m_admin_1_states_provinces.json", true);
-reqStates.addEventListener("load", function () {
-  console.log('State/province geometry loaded');
-  states = JSON.parse(reqStates.responseText);
-});
-reqStates.send(null);
+var assets;
 
 
 function numberWithCommas(x) {
@@ -194,19 +175,22 @@ var emptyWorld = function() {
 };
 
 var kickOff = function() {
-  emptyWorld();
-  emptyCountry();
-  worldHotspots(c);
+  worldHotSpotSummary = assets.getWorldSummary();
+  states = assets.getStateGeo();
+  if(worldHotSpotSummary && states) {
+    emptyWorld();
+    emptyCountry();
+    worldHotspots(c);
+  } else {
+    setTimeout(kickOff,1000);
+  }
 };
 
   return {
-    showIt: function() {
+    showIt: function(assetLoader) {
       console.log('showIt');
-      if(worldHotSpotSummary) {
-        kickOff();
-      } else {
-        setTimeout(kickOff,1000);
-      }
+      assets = assetLoader;
+      kickOff();
     }
   };
 

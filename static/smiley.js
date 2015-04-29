@@ -1,25 +1,17 @@
 var smiley = (function () {
 console.log('init');
+var assets;
 var worldTextSummary;
-
+var states;
 console.log('Loading World Text Summary');
 var req = new XMLHttpRequest();
+
 req.open("GET", "/summary?location=World Text", true);
 req.addEventListener("load", function() {
   worldTextSummary = JSON.parse(req.responseText);
   console.log("Loaded World Text Summary");
 });
 req.send(null);
-
-console.log('Loading GeoJSON for States/Provinces');
-var states;
-var reqStates = new XMLHttpRequest();
-reqStates.open("GET","ne_10m_admin_1_states_provinces.json", true);
-reqStates.addEventListener("load", function () {
-  console.log('State/province geometry loaded');
-  states = JSON.parse(reqStates.responseText);
-});
-reqStates.send(null);
 
 
 function numberWithCommas(x) {
@@ -89,18 +81,20 @@ var emptyCountry = function() {
 };
 
 var kickOff = function() {
-  emptyCountry();
-  worldText(c);
+  states = assets.getStateGeo();
+  if(worldTextSummary && states) {
+    emptyCountry();
+    worldText(c);
+  } else {
+    setTimeout(kickOff,1000);
+  }
 };
 
   return {
-    showIt: function() {
+    showIt: function(assetLoader) {
       console.log('showIt');
-      if(worldTextSummary) {
-        kickOff();
-      } else {
-        setTimeout(kickOff,1000);
-      }
+      assets=assetLoader;
+      kickOff();
     }
   };
 

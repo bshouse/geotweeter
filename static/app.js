@@ -5,7 +5,7 @@ var Tabs = ReactSimpleTabs;
 var App = React.createClass({
   onMount: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
     console.log('on mount, showing tab ' + selectedIndex);
-    hotspot.showIt();
+    hotspot.showIt(assetLoader);
   },
   onBeforeChange: function(selectedIndex, $selectedPanel, $selectedTabMenu) {
     console.log('before the tab ' + selectedIndex);
@@ -14,10 +14,10 @@ var App = React.createClass({
     console.log('after the tab ' + selectedIndex);
     switch(selectedIndex) {
       case 1:
-        hotspot.showIt();
+        hotspot.showIt(assetLoader);
         break;
       case 2:
-        media.showIt();
+        media.showIt(assetLoader);
         break;
       case 3:
         days.showIt();
@@ -32,7 +32,7 @@ var App = React.createClass({
         travel.showIt();
         break;
       case 7:
-        smiley.showIt();
+        smiley.showIt(assetLoader);
         break;
       default:
         console.log('unknown tab: '+selectedIndex)
