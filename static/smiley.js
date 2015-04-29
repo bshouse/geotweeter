@@ -73,6 +73,25 @@ function worldText(countryGeo) {
   console.log("map svg done");
 };
 
+var drawLegend = function(div) {
+  console.log('drawCountryDays');
+
+  var width = 50;
+  var height = 100;
+  var vis = d3.select("#"+div).append("svg").attr("width", width).attr("height", height);
+
+  vis.append("svg")
+     .attr("width", 200)
+     .attr("height", 200);
+
+  vis.append("rect")
+     .attr("x", 10)
+     .attr("y", 10)
+     .attr("width", 50)
+     .attr("height", 100);
+};
+
+
 var emptyCountry = function() {
   myNode = document.getElementById("worldText");
   while (myNode.firstChild) {
@@ -85,6 +104,7 @@ var kickOff = function() {
   if(worldTextSummary && states) {
     emptyCountry();
     worldText(c);
+    drawLegend('worldTextLegend');
   } else {
     setTimeout(kickOff,1000);
   }

@@ -99,8 +99,15 @@ var App = React.createClass({
         </table>
         </Tabs.Panel>
         <Tabs.Panel title='Smiley Tweets'>
-          <h2>Smiley Tweets by Country</h2>
-          <div id="worldText"></div>
+        <table>
+          <tr>
+            <th><h2>Smiley Tweets</h2></th>
+          </tr>
+          <tr>
+            <td><div id="worldText"></div></td>
+            <td><div id="worldTextLegend"></div></td>
+          </tr>
+        </table>
         </Tabs.Panel>
       </Tabs>
     );
