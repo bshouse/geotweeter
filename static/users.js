@@ -151,24 +151,32 @@ var cleanUp = function() {
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
+  c.style.height='auto';
 	var c = document.getElementById("smallCountsChart");
 	while (c.firstChild) {
    	c.removeChild(c.firstChild);
 	}
+  c.style.height='auto';
 
 };
+
+
+var kickOff = function() {
+  if(world) {
+    cleanUp();
+    drawSmallCounts(repackTweetCounts(world.smallCounts),'smallCountsChart');
+    drawNameChanges(repackChangeCounts(world.smallNames),'screenNameChart');
+  } else {
+    setTimeout(kickOff,500);
+  }
+
+}
 
 
   return {
     showIt: function() {
       console.log('users.showIt');
-      if(world) {
-        cleanUp();
-        drawSmallCounts(repackTweetCounts(world.smallCounts),'smallCountsChart');
-      	drawNameChanges(repackChangeCounts(world.smallNames),'screenNameChart');
-      } else {
-        setTimeout(showIt,500);
-      }
+      kickOff();
     }
   };
 

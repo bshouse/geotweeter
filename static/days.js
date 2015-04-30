@@ -193,6 +193,12 @@ var cleanUp = function() {
 	}
 	c.style.height='auto';
 
+	c = document.getElementById(mediaDiv);
+	while (c.firstChild) {
+   	c.removeChild(c.firstChild);
+	}
+	c.style.height='auto';
+
 };
 
 //Load the World Day summary
