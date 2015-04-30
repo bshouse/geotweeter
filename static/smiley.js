@@ -110,7 +110,12 @@ var drawLegend = function(div) {
 
 
 var emptyCountry = function() {
-  myNode = document.getElementById("worldText");
+  var myNode = document.getElementById("worldText");
+  while (myNode.firstChild) {
+     myNode.removeChild(myNode.firstChild);
+  }
+
+  myNode = document.getElementById("worldTextLegend");
   while (myNode.firstChild) {
      myNode.removeChild(myNode.firstChild);
   }
