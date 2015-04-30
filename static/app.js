@@ -95,37 +95,49 @@ var App = React.createClass({
         </Tabs.Panel>
         <Tabs.Panel title='Users'>
           <table>
-            <tr>
-              <th><h2>Number of users by Tweet count.</h2></th>
-              <th><h2>Screen Names Changes</h2></th>
-            </tr>
-            <tr>
-              <td><div id="smallCountsChart"></div></td>
-              <td><div id="screenNameChart"></div></td>
-            </tr>
+            <thead>
+                <tr>
+                  <th><h2>Number of users by Tweet count.</h2></th>
+                  <th><h2>Screen Names Changes</h2></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div id="smallCountsChart"></div></td>
+                <td><div id="screenNameChart"></div></td>
+              </tr>
+            </tbody>
           </table>
         </Tabs.Panel>
         <Tabs.Panel title='Travel'>
         <table>
-          <tr>
-            <th><h2>Number of users by Country count.</h2></th>
-            <th><h2>Number of users by State/Province count.</h2></th>
-          </tr>
-          <tr>
-            <td><div id="countryTravelChart"></div></td>
-            <td><div id="stateTravelChart"></div></td>
-          </tr>
+          <thead>
+            <tr>
+              <th><h2>Number of users by Country count.</h2></th>
+              <th><h2>Number of users by State/Province count.</h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div id="countryTravelChart"></div></td>
+              <td><div id="stateTravelChart"></div></td>
+            </tr>
+          </tbody>
         </table>
         </Tabs.Panel>
         <Tabs.Panel title='Smiley Tweets'>
         <table>
-          <tr>
-            <th><h2>Countries Percentage of Smiley Tweets </h2></th>
-          </tr>
-          <tr>
-            <td><div id="worldText"></div></td>
-            <td><div id="worldTextLegend"></div></td>
-          </tr>
+          <thead>
+            <tr>
+              <th><h2>Countries Percentage of Smiley Tweets </h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div id="worldText"></div></td>
+              <td><div id="worldTextLegend"></div></td>
+            </tr>
+          </tbody>
         </table>
         </Tabs.Panel>
       </Tabs>
