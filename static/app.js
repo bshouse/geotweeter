@@ -17,22 +17,22 @@ var App = React.createClass({
         hotspot.showIt(assetLoader);
         break;
       case 2:
-        media.showIt(assetLoader);
+        smiley.showIt(assetLoader);
         break;
       case 3:
-        days.showIt();
+        media.showIt(assetLoader);
         break;
       case 4:
-        hours.showIt();
+        days.showIt();
         break;
       case 5:
-        users.showIt();
+        hours.showIt();
         break;
       case 6:
-        travel.showIt();
+        users.showIt();
         break;
       case 7:
-        smiley.showIt(assetLoader);
+        travel.showIt();
         break;
       default:
         console.log('unknown tab: '+selectedIndex)
@@ -48,7 +48,22 @@ var App = React.createClass({
           <div id='world'></div>
           <div id='country'></div>
         </Tabs.Panel>
-        <Tabs.Panel title='Media Hot Spots'>
+        <Tabs.Panel title='Smiley Tweets'>
+        <table>
+          <thead>
+            <tr>
+              <th><h2>Countries Percentage of Smiley Tweets</h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div id="worldText"></div></td>
+              <td><div id="worldTextLegend"></div></td>
+            </tr>
+          </tbody>
+        </table>
+        </Tabs.Panel>
+        <Tabs.Panel title='Media Tweets'>
           <h2>Geo Tweets with Images</h2>
           <div id='mediaWorld'></div>
           <div id='mediaCountry'></div>
@@ -97,7 +112,7 @@ var App = React.createClass({
           <table>
             <thead>
                 <tr>
-                  <th><h2>Number of users by Tweet count.</h2></th>
+                  <th><h2>Number of users by Tweet count</h2></th>
                   <th><h2>Screen Names Changes</h2></th>
                 </tr>
             </thead>
@@ -113,29 +128,14 @@ var App = React.createClass({
         <table>
           <thead>
             <tr>
-              <th><h2>Number of users by Country count.</h2></th>
-              <th><h2>Number of users by State/Province count.</h2></th>
+              <th><h2>Number of users by Country count</h2></th>
+              <th><h2>Number of users by State/Province count</h2></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><div id="countryTravelChart"></div></td>
               <td><div id="stateTravelChart"></div></td>
-            </tr>
-          </tbody>
-        </table>
-        </Tabs.Panel>
-        <Tabs.Panel title='Smiley Tweets'>
-        <table>
-          <thead>
-            <tr>
-              <th><h2>Countries Percentage of Smiley Tweets </h2></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><div id="worldText"></div></td>
-              <td><div id="worldTextLegend"></div></td>
             </tr>
           </tbody>
         </table>
